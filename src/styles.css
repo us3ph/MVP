@@ -1,3 +1,11 @@
+/* ---- Theme tokens shared by both modes ---- */
+:root {
+  --stat-en-cours: #4640cf;
+  --stat-valides: #17803a;
+  --stat-brouillons: #8e2db8;
+  --stat-historique: #2d5bd6;
+}
+
 /* ---- Base (from the design mockup) ---- */
 body {
   margin: 0;
@@ -184,15 +192,6 @@ input:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  font-family:
-    ui-rounded,
-    'SF Pro Rounded',
-    -apple-system,
-    BlinkMacSystemFont,
-    'SF Pro Text',
-    Inter,
-    system-ui,
-    sans-serif;
   color: #17171f;
 }
 .main::-webkit-scrollbar {
@@ -218,6 +217,36 @@ input:focus-visible {
   margin-top: 3px;
   font-size: 14px;
   color: #6a6a77;
+}
+.hdr-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.theme-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #55555f;
+  background: #e9e9f0;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    transform 0.15s;
+}
+.theme-btn:hover {
+  background: #dedee8;
+  color: #0b66cf;
+}
+.theme-btn:active {
+  transform: scale(0.94);
+}
+.theme-btn .i {
+  width: 16px;
+  height: 16px;
 }
 .brand {
   display: flex;
@@ -459,30 +488,259 @@ button.stat:hover {
 }
 .qa {
   flex: 1;
-  height: 68px;
-  border-radius: 15px;
+  height: 112px;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: 4px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #17171f;
+  overflow: hidden; /* the tile is a window: objects are clipped by its edges */
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
   transition:
-    transform 0.15s,
-    box-shadow 0.15s;
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s;
 }
 .qa:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.03);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
-    0 8px 18px rgba(60, 60, 120, 0.15);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 12px 24px rgba(60, 60, 120, 0.18);
 }
-.qa .i {
-  width: 21px;
-  height: 21px;
+.qa:active {
+  transform: translateY(-1px) scale(0.99);
+}
+/* Stage: a static ground shadow and the object. Nothing moves until hover; then the object makes one
+   full pass: it leaves through one side of the tile (clipped by the tile edge), comes back in from the
+   opposite side, settles and stops. */
+.qa-stage {
+  position: relative;
+  width: 90px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qa-ground {
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 46px;
+  height: 11px;
+  margin-left: -23px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(40, 40, 90, 0.3), rgba(40, 40, 90, 0));
+}
+.qa-obj {
+  width: 54px;
+  height: 54px;
+  display: block;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 3px 3px rgba(40, 40, 90, 0.12));
+}
+.qa:hover .qa-obj {
+  animation: var(--pass) 1.35s 1 both;
+}
+.main[data-scrolling] .qa:hover .qa-obj,
+.main[data-scrolling] .qa:hover .qa-ground,
+.main[data-scrolling] .qa:hover .needle {
+  animation: none;
+}
+.qa:hover .qa-ground {
+  animation: var(--ground, qa-ground-pass) 1.35s linear 1 both;
+}
+.qa-national {
+  --pass: qa-pass-car;
+  background: linear-gradient(180deg, #d8e4f8, #dce7f8);
+}
+.qa-international {
+  --pass: qa-pass-plane;
+  background: linear-gradient(180deg, #dfdef4, #e3e2f5);
+}
+.qa-search {
+  --pass: qa-pass-zoom;
+  --ground: qa-ground-zoom;
+  background: linear-gradient(180deg, #eadcf0, #eee1f2);
+}
+.qa-filter {
+  background: linear-gradient(180deg, #f7dce3, #f8e0e6);
+}
+/* Filtrer: the panel stays put; the four knobs turn (each by its own amount) and settle back. */
+.qa-filter:hover .qa-obj,
+.qa-filter:hover .qa-ground {
+  animation: none;
+}
+.qa-obj.knobs {
+  overflow: visible;
+}
+.needle {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.qa-filter:hover .needle {
+  animation: qa-knob 1.3s ease-in-out 1 both;
+}
+.needle.k1 {
+  --turn: 150deg;
+}
+.needle.k2 {
+  --turn: -120deg;
+  animation-delay: 0.06s;
+}
+.needle.k3 {
+  --turn: 95deg;
+  animation-delay: 0.12s;
+}
+.needle.k4 {
+  --turn: -160deg;
+  animation-delay: 0.18s;
+}
+@keyframes qa-knob {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(var(--turn));
+  }
+  68% {
+    transform: rotate(var(--turn));
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes qa-ground-zoom {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  45%,
+  60% {
+    transform: scale(1.6);
+    opacity: 0.45;
+  }
+}
+.qa-suivi {
+  --pass: qa-pass-roll;
+  background: linear-gradient(180deg, #dcefe2, #e0f1e6);
+}
+.qa-export {
+  --pass: qa-pass-lift;
+  background: linear-gradient(180deg, #f6e5d9, #f7e9df);
+}
+/* Shadow fades while the object is away, returns as it lands. */
+@keyframes qa-ground-pass {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  65% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Car: drives out to the left, comes back in from the right, brakes. */
+@keyframes qa-pass-car {
+  0% {
+    transform: translateX(0);
+    animation-timing-function: ease-in;
+  }
+  40% {
+    transform: translateX(-160px);
+  }
+  41% {
+    transform: translateX(160px);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  88% {
+    transform: translateX(-5px) rotate(-2deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/* Plane: takes off to the top-right and shrinks into the distance, then comes back from the
+   bottom-left corner and lands. */
+@keyframes qa-pass-plane {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0);
+    animation-timing-function: ease-in;
+  }
+  42% {
+    transform: translate(150px, -110px) scale(0.7) rotate(-22deg);
+  }
+  43% {
+    transform: translate(-150px, 110px) scale(0.7) rotate(-12deg);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0);
+  }
+}
+/* Magnifier: zooms up close to the glass as if inspecting, holds a beat, settles back. */
+@keyframes qa-pass-zoom {
+  0% {
+    transform: scale(1) rotate(0);
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  45% {
+    transform: scale(1.65) translate(3px, 3px) rotate(-8deg);
+  }
+  60% {
+    transform: scale(1.65) translate(3px, 3px) rotate(-8deg);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+/* Compass: rolls out to the right, rolls back in from the left and settles. */
+@keyframes qa-pass-roll {
+  0% {
+    transform: translateX(0) rotate(0);
+    animation-timing-function: ease-in;
+  }
+  40% {
+    transform: translateX(160px) rotate(180deg);
+  }
+  41% {
+    transform: translateX(-160px) rotate(-180deg);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+}
+/* Tray: lifts out through the top, comes back up from below. */
+@keyframes qa-pass-lift {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: ease-in;
+  }
+  40% {
+    transform: translateY(-130px);
+  }
+  41% {
+    transform: translateY(130px);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qa:hover .qa-obj,
+  .qa:hover .qa-ground {
+    animation: none;
+  }
 }
 
 /* ---- Table ---- */
@@ -1146,4 +1404,306 @@ button.sel:hover {
     opacity: 1;
     transform: translate(-50%, 0);
   }
+}
+
+/* =====================================================================================
+   Dark mode (macOS style: near-black panels, white bold type, grey secondary text,
+   soft grey selection, same azure accent). Activated with [data-theme="dark"] on <html>.
+   ===================================================================================== */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --stat-en-cours: #8f88ff;
+  --stat-valides: #4cd964;
+  --stat-brouillons: #d286ff;
+  --stat-historique: #6fb3ff;
+}
+[data-theme='dark'] body {
+  background: #1c1c1e;
+}
+[data-theme='dark'] .win {
+  background: linear-gradient(135deg, #1a1a1c, #202023 40%, #232326);
+}
+/* Sidebar */
+[data-theme='dark'] .side {
+  background: #1f1f22;
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.07),
+    0 4px 18px rgba(0, 0, 0, 0.35);
+}
+[data-theme='dark'] .side-foot::before {
+  background: rgba(255, 255, 255, 0.08);
+}
+[data-theme='dark'] .sbt {
+  color: #9b9ba3;
+}
+[data-theme='dark'] .sbt:hover {
+  color: #8cc2ff;
+}
+[data-theme='dark'] .gh {
+  color: #8e8e96;
+}
+[data-theme='dark'] .gh .i {
+  color: #c8c8d0;
+}
+[data-theme='dark'] .it {
+  color: #e8e8ec;
+  font-weight: 500;
+}
+[data-theme='dark'] .it .i {
+  color: #d2d2d8;
+}
+[data-theme='dark'] .it:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+[data-theme='dark'] .it.on {
+  background: #3b3b40;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: none;
+}
+[data-theme='dark'] .it.on .i {
+  color: #fff;
+}
+/* Page */
+[data-theme='dark'] .main {
+  color: #f2f2f5;
+}
+[data-theme='dark'] .hsub,
+[data-theme='dark'] .cost-sub,
+[data-theme='dark'] .ss,
+[data-theme='dark'] .sub,
+[data-theme='dark'] .mu2,
+[data-theme='dark'] .dt span,
+[data-theme='dark'] .kv .k,
+[data-theme='dark'] .ph p {
+  color: #9b9ba3;
+}
+[data-theme='dark'] .cost-cur,
+[data-theme='dark'] .cost-foot,
+[data-theme='dark'] .th,
+[data-theme='dark'] .chips-lab,
+[data-theme='dark'] .fld label,
+[data-theme='dark'] .empty,
+[data-theme='dark'] .cal-dow,
+[data-theme='dark'] .m .i {
+  color: #8e8e96;
+}
+[data-theme='dark'] .mu,
+[data-theme='dark'] .srch::placeholder,
+[data-theme='dark'] .fld .pick.pick-blank b,
+[data-theme='dark'] .fld input::placeholder {
+  color: #7a7a84;
+}
+[data-theme='dark'] .lab {
+  color: #c8c8d0;
+}
+[data-theme='dark'] .cost-trend {
+  color: #8f88ff;
+}
+[data-theme='dark'] .spark path:last-child {
+  stroke: #8f88ff;
+}
+[data-theme='dark'] .theme-btn {
+  background: #3a3a3e;
+  color: #e6e6ea;
+}
+[data-theme='dark'] .theme-btn:hover {
+  background: #47474c;
+  color: #ffd60a;
+}
+/* Cards */
+[data-theme='dark'] .c {
+  background: linear-gradient(180deg, #2a2a2e, #27272b);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.35),
+    0 0 0 0.5px rgba(255, 255, 255, 0.04);
+}
+[data-theme='dark'] button.stat:hover {
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.45),
+    0 0 0 0.5px rgba(255, 255, 255, 0.1);
+}
+[data-theme='dark'] .banner-ic {
+  color: #ffd60a;
+}
+/* Pills */
+[data-theme='dark'] .pb {
+  background: rgba(111, 179, 255, 0.18);
+  color: #8cc2ff;
+}
+[data-theme='dark'] .pg {
+  background: rgba(255, 255, 255, 0.1);
+  color: #c8c8d0;
+}
+[data-theme='dark'] .pv {
+  background: rgba(76, 217, 100, 0.18);
+  color: #5fd37a;
+}
+[data-theme='dark'] .pa {
+  background: rgba(255, 214, 10, 0.16);
+  color: #ffd60a;
+}
+/* Buttons, selects, chips */
+[data-theme='dark'] .gbtn,
+[data-theme='dark'] .sel,
+[data-theme='dark'] .chip {
+  background: #3a3a3e;
+  color: #c8c8d0;
+}
+[data-theme='dark'] .gbtn {
+  color: #f2f2f5;
+}
+[data-theme='dark'] .gbtn:hover,
+[data-theme='dark'] button.sel:hover,
+[data-theme='dark'] .sel.open,
+[data-theme='dark'] .chip:hover {
+  background: #47474c;
+}
+[data-theme='dark'] .sel b,
+[data-theme='dark'] .srch {
+  color: #f2f2f5;
+}
+[data-theme='dark'] .sel .i {
+  color: #9b9ba3;
+}
+[data-theme='dark'] .sel.on {
+  background: rgba(46, 142, 255, 0.22);
+  color: #8cc2ff;
+}
+[data-theme='dark'] .sel.on .i {
+  color: #8cc2ff;
+}
+/* Quick-action tiles: the same hues, deepened */
+[data-theme='dark'] .qa {
+  color: #f2f2f5;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+[data-theme='dark'] .qa:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 12px 24px rgba(0, 0, 0, 0.45);
+}
+[data-theme='dark'] .qa-national {
+  background: linear-gradient(180deg, #273650, #22304a);
+}
+[data-theme='dark'] .qa-international {
+  background: linear-gradient(180deg, #2e2c50, #29274a);
+}
+[data-theme='dark'] .qa-search {
+  background: linear-gradient(180deg, #3b2a48, #352642);
+}
+[data-theme='dark'] .qa-filter {
+  background: linear-gradient(180deg, #472730, #40232b);
+}
+[data-theme='dark'] .qa-suivi {
+  background: linear-gradient(180deg, #243c30, #20362b);
+}
+[data-theme='dark'] .qa-export {
+  background: linear-gradient(180deg, #47352a, #403027);
+}
+[data-theme='dark'] .qa-ground {
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+}
+[data-theme='dark'] .qa-obj {
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.35));
+}
+/* Table */
+[data-theme='dark'] .tr {
+  color: #e6e6ea;
+}
+[data-theme='dark'] .tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+[data-theme='dark'] .num,
+[data-theme='dark'] .h,
+[data-theme='dark'] .cal-title,
+[data-theme='dark'] .cal-day,
+[data-theme='dark'] .pop-item {
+  color: #f2f2f5;
+}
+[data-theme='dark'] .rb {
+  color: #9b9ba3;
+}
+[data-theme='dark'] .rb:hover {
+  background: rgba(111, 179, 255, 0.15);
+  color: #8cc2ff;
+}
+/* Form controls */
+[data-theme='dark'] .fld input,
+[data-theme='dark'] .fld .pick {
+  background: #1f1f22;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f2f2f5;
+}
+[data-theme='dark'] .fld input:focus,
+[data-theme='dark'] .fld .pick:focus-visible,
+[data-theme='dark'] .fld .pick.open {
+  border-color: #2e8eff;
+  box-shadow: 0 0 0 3px rgba(46, 142, 255, 0.25);
+}
+[data-theme='dark'] .fld .pick .i {
+  color: #9b9ba3;
+}
+/* Popovers and calendar */
+[data-theme='dark'] .pop {
+  background: rgba(44, 44, 48, 0.97);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.5),
+    0 12px 32px rgba(0, 0, 0, 0.55);
+}
+[data-theme='dark'] .pop-item:hover,
+[data-theme='dark'] .pop-item:focus-visible,
+[data-theme='dark'] .cal-nav:hover,
+[data-theme='dark'] .cal-day:hover,
+[data-theme='dark'] .cal-ft button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+[data-theme='dark'] .pop-item.on,
+[data-theme='dark'] .pop-item .i,
+[data-theme='dark'] .cal-nav:hover,
+[data-theme='dark'] .cal-ft button {
+  color: #8cc2ff;
+}
+[data-theme='dark'] .cal-nav {
+  color: #9b9ba3;
+}
+[data-theme='dark'] .cal-day.mu {
+  color: #5a5a62;
+}
+[data-theme='dark'] .cal-day.today {
+  box-shadow: inset 0 0 0 1px rgba(111, 179, 255, 0.6);
+}
+[data-theme='dark'] .cal-ft {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+/* Modal and toast */
+[data-theme='dark'] .ov {
+  background: rgba(0, 0, 0, 0.55);
+}
+[data-theme='dark'] .md {
+  background: linear-gradient(180deg, #2b2b2f, #303034);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f2f2f5;
+}
+[data-theme='dark'] .toast {
+  background: #3a3a3e;
+  color: #fff;
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.12),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+}
+[data-theme='dark'] .toast .i {
+  color: #8cc2ff;
+}
+/* Smooth switch between modes (only on containers whose own transitions are colour-only or absent) */
+.c,
+.main,
+.hdr-right .theme-btn {
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s;
 }

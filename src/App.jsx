@@ -115,14 +115,48 @@ function ListPage({ missions, title, status, onView, onAction }) {
   );
 }
 
+function initialTheme() {
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+  } catch {
+    /* storage unavailable: fall through to the OS preference */
+  }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
 export default function App() {
   const [page, setPage] = useState('mes-ordres');
+  const [theme, setTheme] = useState(initialTheme);
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      /* ignore */
+    }
+  }, [theme]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [modal, setModal] = useState(null);
   const [toast, setToast] = useState(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const toastTimer = useRef();
   const searchRef = useRef(null);
+  const mainRef = useRef(null);
+  const pointer = useRef({ x: -1, y: -1 });
+
+  // Scrolling slides tiles under a still cursor, which the browser reports as hover. Flag the column
+  // while scrolling and clear the flag only when the pointer really moves (not on the browser's
+  // synthetic post-scroll mouse event, which keeps the same coordinates).
+  useEffect(() => {
+    const onMove = (e) => {
+      if (e.clientX === pointer.current.x && e.clientY === pointer.current.y) return;
+      pointer.current = { x: e.clientX, y: e.clientY };
+      mainRef.current?.removeAttribute('data-scrolling');
+    };
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
   const { scale, width, height } = useFillScale();
 
   const missions = MISSIONS;
@@ -227,8 +261,13 @@ export default function App() {
           onNavigate={navigate}
           onLogout={() => notify('Déconnexion (bientôt disponible).')}
         />
-        <div className="main">
-          <PageHeader title={header.title} subtitle={header.subtitle} />
+        <div className="main" ref={mainRef} onScroll={(e) => e.currentTarget.setAttribute('data-scrolling', '')}>
+          <PageHeader
+            title={header.title}
+            subtitle={header.subtitle}
+            theme={theme}
+            onToggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+          />
           <Fragment key={page}>{content}</Fragment>
         </div>
         {modal && <MissionModal mission={modal} onClose={closeModal} onAction={onRowAction} />}

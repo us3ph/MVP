@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Then open the URL printed by Vite (usually http://localhost:5173).
+Then open http://localhost:5180 (the port is fixed in `vite.config.js`).
 
 ## Build
 
