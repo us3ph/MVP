@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import Sidebar, { SidebarToggle } from './components/Sidebar';
 import PageHeader from './components/PageHeader';
 import CostCard from './components/CostCard';
@@ -136,6 +137,16 @@ export default function App() {
       /* ignore */
     }
   }, [theme]);
+  // Cross-fade the whole page between themes (View Transitions API); plain switch where unsupported.
+  const toggleTheme = useCallback(() => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    const apply = () => {
+      document.documentElement.setAttribute('data-theme', next);
+      flushSync(() => setTheme(next));
+    };
+    if (document.startViewTransition) document.startViewTransition(apply);
+    else apply();
+  }, [theme]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [modal, setModal] = useState(null);
   const [toast, setToast] = useState(null);
@@ -266,7 +277,7 @@ export default function App() {
             title={header.title}
             subtitle={header.subtitle}
             theme={theme}
-            onToggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+            onToggleTheme={toggleTheme}
           />
           <Fragment key={page}>{content}</Fragment>
         </div>

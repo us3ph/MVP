@@ -1697,13 +1697,9 @@ button.sel:hover {
 [data-theme='dark'] .toast .i {
   color: #8cc2ff;
 }
-/* Smooth switch between modes (only on containers whose own transitions are colour-only or absent) */
-.c,
-.main,
-.hdr-right .theme-btn {
-  transition:
-    background 0.25s,
-    color 0.25s,
-    border-color 0.25s,
-    box-shadow 0.25s;
+/* Theme switch: the whole page cross-fades as one image, so no element changes ahead of another. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
 }
