@@ -1,0 +1,20 @@
+role 1 = user / validator
+role 2(control de gestion) = user / admin / budget owner /  budget validator / validator
+role 3 = controleur / notes de frais
+role 4 = user / admin / order de mission /
+role 5 = user / delegation / validation
+
+
+
+international =
+national = 
+
+
+
+
+super admin = all
+
+
+
+
+
