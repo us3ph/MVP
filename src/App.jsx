@@ -10,6 +10,7 @@ import MissionsTable from './components/MissionsTable';
 import MissionModal from './components/MissionModal';
 import OrderFormPage from './components/OrderFormPage';
 import PlaceholderPage from './components/PlaceholderPage';
+import ProfileSettingsPage from './components/ProfileSettingsPage';
 import Toast from './components/Toast';
 import { MISSIONS } from './data/missions';
 
@@ -66,8 +67,7 @@ const PAGES = {
   },
   parametres: {
     title: 'Paramètres',
-    subtitle: 'Préférences de votre compte.',
-    icon: 'sliders',
+    subtitle: 'Votre profil et vos documents de voyage.',
   },
   liens: {
     title: 'Liens utiles',
@@ -242,6 +242,8 @@ export default function App() {
     );
   } else if (page === 'national' || page === 'international') {
     content = <OrderFormPage kind={page} onSubmit={onFormSubmit} />;
+  } else if (page === 'parametres') {
+    content = <ProfileSettingsPage onSave={() => notify('Profil enregistré.')} />;
   } else if (header.status) {
     const rows = header.onlyAdvance ? missions.filter((m) => m.advance) : missions;
     content = <ListPage missions={rows} title={header.title} status={header.status} onView={setModal} onAction={onRowAction} />;

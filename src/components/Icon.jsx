@@ -98,6 +98,46 @@ const PATHS = {
     </>
   ),
   close: <path d="M6 6l12 12M18 6 6 18" />,
+  plus: <path d="M12 5v14M5 12h14" />,
+  profile: (
+    <>
+      <circle cx="12" cy="8.5" r="4" />
+      <path d="M4.5 20.5a7.5 7.5 0 0 1 15 0" />
+    </>
+  ),
+  passport: (
+    <>
+      <rect x="5" y="3" width="14" height="18" rx="2.5" />
+      <circle cx="12" cy="10" r="3.2" />
+      <path d="M8.8 10h6.4M12 6.8c1.2 1 1.2 5.4 0 6.4M12 6.8c-1.2 1-1.2 5.4 0 6.4M9 17.5h6" />
+    </>
+  ),
+  idcard: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <circle cx="8.5" cy="10.5" r="2" />
+      <path d="M5.3 16a3.2 3.2 0 0 1 6.4 0M14 9.5h4M14 13h4" />
+    </>
+  ),
+  clipboard: (
+    <>
+      <rect x="5" y="4.5" width="14" height="16.5" rx="2.5" />
+      <path d="M9 4.5V3.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1M9 11h6M9 15h4" />
+    </>
+  ),
+  camera: (
+    <>
+      <path d="M4 8.5a2 2 0 0 1 2-2h2l1.3-2h5.4l1.3 2h2a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+      <circle cx="12" cy="13" r="3.4" />
+    </>
+  ),
+  stamp: (
+    <>
+      <path d="M8.5 13.5V8a3.5 3.5 0 0 1 7 0v5.5" />
+      <path d="M5 13.5h14a1 1 0 0 1 1 1V17H4v-2.5a1 1 0 0 1 1-1zM6.5 20.5h11" />
+    </>
+  ),
+  trash: <path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l.8 12.2a1.5 1.5 0 0 0 1.5 1.3h6.4a1.5 1.5 0 0 0 1.5-1.3L17.5 7M10 11v6M14 11v6" />,
   sun: (
     <>
       <circle cx="12" cy="12" r="4" />
