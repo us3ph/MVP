@@ -1,5 +1,6 @@
 /* ---- Theme tokens shared by both modes ---- */
 :root {
+  color-scheme: light; /* the app's own theme decides the scheme, not the OS */
   --stat-en-cours: #4640cf;
   --stat-valides: #17803a;
   --stat-brouillons: #8e2db8;
@@ -12,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background: #f3f3fa;
+  color: #17171f; /* explicit, so nothing inherits the browser's scheme default */
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, system-ui, sans-serif;
 }
@@ -117,12 +119,9 @@ input:focus-visible {
 .side::-webkit-scrollbar {
   display: none;
 }
-/* Spacer under the toggle button so the first entry does not sit on it. */
+/* Spacer under the toggle button so the first group does not sit on it. */
 .sbh {
   height: 46px;
-}
-.sbh + .it {
-  margin-top: 10px;
 }
 .sbt {
   position: absolute;
@@ -131,8 +130,12 @@ input:focus-visible {
   z-index: 5;
   color: #6a6a77;
   display: flex;
-  border-radius: 6px;
-  transition: color 0.15s;
+  padding: 3px;
+  margin: -3px;
+  border-radius: 7px;
+  transition:
+    color 0.15s,
+    background 0.15s;
 }
 .sbt:hover {
   color: #0b66cf;
@@ -1488,6 +1491,7 @@ button.sel:hover {
 }
 [data-theme='dark'] body {
   background: #1c1c1e;
+  color: #f2f2f5;
 }
 [data-theme='dark'] .win {
   background: linear-gradient(135deg, #1a1a1c, #202023 40%, #232326);
@@ -1506,7 +1510,8 @@ button.sel:hover {
   color: #9b9ba3;
 }
 [data-theme='dark'] .sbt:hover {
-  color: #8cc2ff;
+  color: #fff;
+  background: #38383d; /* same grey as the selected sidebar entry */
 }
 [data-theme='dark'] .gh {
   color: #8e8e96;
@@ -1578,7 +1583,17 @@ button.sel:hover {
 }
 [data-theme='dark'] .theme-btn:hover {
   background: #47474c;
-  color: #ffd60a;
+  color: #fff;
+}
+/* The banner's Ouvrir button uses the selection grey instead of blue in dark mode. */
+[data-theme='dark'] .banner .go {
+  background: #38383d;
+  color: #fff;
+  box-shadow: none;
+}
+[data-theme='dark'] .banner .go:hover {
+  background: #47474c;
+  filter: none;
 }
 /* Cards */
 [data-theme='dark'] .c {

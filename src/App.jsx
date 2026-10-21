@@ -24,7 +24,6 @@ const DASHBOARD = {
 };
 
 const PAGES = {
-  accueil: DASHBOARD,
   'mes-ordres': DASHBOARD,
   national: {
     title: 'Ordre national',
@@ -59,11 +58,6 @@ const PAGES = {
     subtitle: 'Avances demandées sur vos ordres de mission.',
     status: 'Tout',
     onlyAdvance: true,
-  },
-  destinations: {
-    title: 'Destinations',
-    subtitle: 'Vos destinations de mission.',
-    icon: 'pin',
   },
   notifications: {
     title: 'Notifications',
@@ -229,7 +223,7 @@ export default function App() {
   };
 
   let content;
-  if (page === 'accueil' || page === 'mes-ordres') {
+  if (page === 'mes-ordres') {
     content = (
       <>
         <CostCard missions={missions} />

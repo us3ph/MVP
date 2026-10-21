@@ -2,8 +2,6 @@ import { Fragment } from 'react';
 import Icon from './Icon';
 
 export const NAV = [
-  // Top-level entry with no group header: its icon already says "home".
-  { items: [{ key: 'accueil', label: 'Accueil', icon: 'home' }] },
   {
     label: 'Missions',
     icon: 'briefcase',
@@ -22,7 +20,6 @@ export const NAV = [
       { key: 'en-cours', label: 'En cours', icon: 'refresh' },
       { key: 'valides', label: 'Validés', icon: 'check' },
       { key: 'avances', label: 'Avances', icon: 'card' },
-      { key: 'destinations', label: 'Destinations', icon: 'pin' },
     ],
   },
   {
