@@ -527,20 +527,15 @@ button.stat:hover {
   display: flex;
   gap: 12px;
 }
+/* Each tile is a small looping clip with its label on a dark gradient at the bottom. */
 .qa {
+  position: relative;
   flex: 1;
   height: 112px;
   border-radius: 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: #17171f;
-  overflow: hidden; /* the tile is a window: objects are clipped by its edges */
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+  overflow: hidden;
+  background: #1b1b24;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
   transition:
     transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.25s;
@@ -548,308 +543,43 @@ button.stat:hover {
 .qa:hover {
   transform: translateY(-4px) scale(1.03);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-    0 12px 24px rgba(60, 60, 120, 0.18);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 12px 24px rgba(60, 60, 120, 0.22);
 }
 .qa:active {
   transform: translateY(-1px) scale(0.99);
 }
-/* Stage: a static ground shadow and the object. Nothing moves until hover; then the object makes one
-   full pass: it leaves through one side of the tile (clipped by the tile edge), comes back in from the
-   opposite side, settles and stops. */
-.qa-stage {
-  position: relative;
-  width: 90px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.qa-ground {
+.qa-clip {
   position: absolute;
-  left: 50%;
-  bottom: 3px;
-  width: 46px;
-  height: 11px;
-  margin-left: -23px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(40, 40, 90, 0.3), rgba(40, 40, 90, 0));
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
 }
-.qa-obj {
-  width: 54px;
-  height: 54px;
-  display: block;
-  margin-bottom: 8px;
-  filter: drop-shadow(0 3px 3px rgba(40, 40, 90, 0.12));
+.qa:hover .qa-clip {
+  transform: scale(1.08);
 }
-.qa:hover .qa-obj {
-  animation: var(--pass) 1.35s 1 both;
-}
-.main[data-scrolling] .qa:hover .qa-obj,
-.main[data-scrolling] .qa:hover .qa-ground,
-.main[data-scrolling] .qa:hover .needle {
-  animation: none;
-}
-.qa:hover .qa-ground {
-  animation: var(--ground, qa-ground-pass) 1.35s linear 1 both;
-}
-.qa-national {
-  --pass: qa-pass-car;
-  background: linear-gradient(180deg, #d8e4f8, #dce7f8);
-}
-.qa-international {
-  --pass: qa-pass-plane;
-  background: linear-gradient(180deg, #dfdef4, #e3e2f5);
-}
-.qa-search {
-  --pass: qa-pass-zoom;
-  --ground: qa-ground-zoom;
-  background: linear-gradient(180deg, #eadcf0, #eee1f2);
-}
-.qa-filter {
-  background: linear-gradient(180deg, #f7dce3, #f8e0e6);
-}
-/* Filtrer: the panel stays put; the four knobs turn (each by its own amount) and settle back. */
-.qa-filter:hover .qa-obj,
-.qa-filter:hover .qa-ground {
-  animation: none;
-}
-.qa-obj.knobs {
-  overflow: visible;
-}
-.needle {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.qa-filter:hover .needle {
-  animation: qa-knob 1.3s ease-in-out 1 both;
-}
-.needle.k1 {
-  --turn: 150deg;
-}
-.needle.k2 {
-  --turn: -120deg;
-  animation-delay: 0.06s;
-}
-.needle.k3 {
-  --turn: 95deg;
-  animation-delay: 0.12s;
-}
-.needle.k4 {
-  --turn: -160deg;
-  animation-delay: 0.18s;
-}
-@keyframes qa-knob {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(var(--turn));
-  }
-  68% {
-    transform: rotate(var(--turn));
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-@keyframes qa-ground-zoom {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  45%,
-  60% {
-    transform: scale(1.6);
-    opacity: 0.45;
-  }
-}
-.qa-suivi {
-  --pass: qa-compass-wobble;
-  background: linear-gradient(180deg, #dcefe2, #e0f1e6);
-}
-.qa-export {
-  --pass: qa-tray-nudge;
-  background: linear-gradient(180deg, #f6e5d9, #f7e9df);
-}
-/* Suivi: the compass stays, its needle whirls twice and settles north with a wobble. */
-.qa-suivi:hover .qa-ground,
-.qa-export:hover .qa-ground {
-  animation: none;
-}
-.qa-obj.compass,
-.qa-obj.tray {
-  overflow: visible;
-}
-.cmp-needle {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.qa-suivi:hover .cmp-needle {
-  animation: qa-needle 1.7s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-}
-@keyframes qa-needle {
-  0% {
-    transform: rotate(0deg);
-  }
-  62% {
-    transform: rotate(745deg);
-  }
-  76% {
-    transform: rotate(706deg);
-  }
-  88% {
-    transform: rotate(727deg);
-  }
-  100% {
-    transform: rotate(720deg);
-  }
-}
-@keyframes qa-compass-wobble {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-  25% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(4deg);
-  }
-  75% {
-    transform: rotate(-2deg);
-  }
-}
-/* Exporter: the sheet shoots up out of the slot and fades, the arrow bobs, then a new sheet slides back in. */
-.qa-export:hover .tray-sheet {
-  animation: qa-sheet 1.4s 1 both;
-}
-.qa-export:hover .tray-arrow {
-  animation: qa-arrow 1.4s ease-in-out 1 both;
-}
-@keyframes qa-sheet {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-    animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
-  }
-  40% {
-    transform: translateY(-34px);
-    opacity: 0;
-  }
-  41% {
-    transform: translateY(8px);
-    opacity: 0;
-  }
-  65% {
-    transform: translateY(8px);
-    opacity: 0;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes qa-arrow {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  28% {
-    transform: translateY(-7px);
-  }
-  55% {
-    transform: translateY(2px);
-  }
-}
-@keyframes qa-tray-nudge {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(2px);
-  }
-  55% {
-    transform: translateY(-1px);
-  }
-}
-/* Shadow fades while the object is away, returns as it lands. */
-@keyframes qa-ground-pass {
-  0% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 0;
-  }
-  65% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-/* Car: drives out to the left, comes back in from the right, brakes. */
-@keyframes qa-pass-car {
-  0% {
-    transform: translateX(0);
-    animation-timing-function: ease-in;
-  }
-  40% {
-    transform: translateX(-160px);
-  }
-  41% {
-    transform: translateX(160px);
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  88% {
-    transform: translateX(-5px) rotate(-2deg);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-/* Plane: takes off to the top-right and shrinks into the distance, then comes back from the
-   bottom-left corner and lands. */
-@keyframes qa-pass-plane {
-  0% {
-    transform: translate(0, 0) scale(1) rotate(0);
-    animation-timing-function: ease-in;
-  }
-  42% {
-    transform: translate(150px, -110px) scale(0.7) rotate(-22deg);
-  }
-  43% {
-    transform: translate(-150px, 110px) scale(0.7) rotate(-12deg);
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  100% {
-    transform: translate(0, 0) scale(1) rotate(0);
-  }
-}
-/* Magnifier: zooms up close to the glass as if inspecting, holds a beat, settles back. */
-@keyframes qa-pass-zoom {
-  0% {
-    transform: scale(1) rotate(0);
-    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  45% {
-    transform: scale(1.65) translate(3px, 3px) rotate(-8deg);
-  }
-  60% {
-    transform: scale(1.65) translate(3px, 3px) rotate(-8deg);
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  100% {
-    transform: scale(1) rotate(0);
-  }
+.qa-lab {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 26px 10px 9px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
 }
 @media (prefers-reduced-motion: reduce) {
-  .qa:hover .qa-obj,
-  .qa:hover .qa-ground {
-    animation: none;
+  .qa,
+  .qa-clip {
+    transition: none;
+  }
+  .qa:hover .qa-clip {
+    transform: none;
   }
 }
 
@@ -1919,40 +1649,6 @@ button.sel:hover {
 }
 [data-theme='dark'] .sel.on .i {
   color: #8cc2ff;
-}
-/* Quick-action tiles: the same hues, deepened */
-[data-theme='dark'] .qa {
-  color: #f2f2f5;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
-}
-[data-theme='dark'] .qa:hover {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 12px 24px rgba(0, 0, 0, 0.45);
-}
-[data-theme='dark'] .qa-national {
-  background: linear-gradient(180deg, #273650, #22304a);
-}
-[data-theme='dark'] .qa-international {
-  background: linear-gradient(180deg, #2e2c50, #29274a);
-}
-[data-theme='dark'] .qa-search {
-  background: linear-gradient(180deg, #3b2a48, #352642);
-}
-[data-theme='dark'] .qa-filter {
-  background: linear-gradient(180deg, #472730, #40232b);
-}
-[data-theme='dark'] .qa-suivi {
-  background: linear-gradient(180deg, #243c30, #20362b);
-}
-[data-theme='dark'] .qa-export {
-  background: linear-gradient(180deg, #47352a, #403027);
-}
-[data-theme='dark'] .qa-ground {
-  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
-}
-[data-theme='dark'] .qa-obj {
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.35));
 }
 /* Table */
 [data-theme='dark'] .tr {

@@ -86,6 +86,8 @@ src/
   schemas/            schémas zod (mission, note de frais, profil, délégation, mot de passe…)
   lib/                format (date-fns), costing (indemnités, décompte), actions (actions par statut), refs
   domain/constants.js vocabulaire du workflow partagé avec le backend
+  assets/clips/       clips des « Actions rapides » (MP4 muets en boucle + affiche WebP, encodés depuis les
+                      GIF fournis : ffmpeg, 12 i/s, 352 px de large)
   styles.css          CSS de la maquette + styles des écrans (tokens --text, --accent… pour les deux thèmes)
 ```
 
