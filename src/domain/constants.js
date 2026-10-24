@@ -17,7 +17,7 @@ export const KIND_TILE = Object.fromEntries(MISSION_KINDS.map((k) => [k.code, k.
 // Ordre de mission. `pill` is the CSS class of the status badge.
 export const MISSION_STATUSES = [
   { code: 'draft', label: 'Brouillon', pill: 'pg' },
-  { code: 'pending', label: 'En cours', pill: 'pb' },
+  { code: 'pending', label: 'En cours', pill: 'po' },
   { code: 'validated', label: 'Validé', pill: 'pv' },
   { code: 'archived', label: 'Archivé', pill: 'pm' },
   { code: 'cancel_pending', label: 'Annulé : En attente d’approbation', short: 'Annulé', pill: 'pk' },
