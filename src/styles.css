@@ -2800,9 +2800,14 @@ button:disabled {
 }
 
 /* ---- Slide-over panels ---- */
+/* Same motion as the sidebar: the panel travels its full width with the sidebar's easing, in and out. */
 .ov-side {
   justify-content: flex-end;
   align-items: stretch;
+  animation: fade 0.3s ease;
+}
+.ov-side.out {
+  animation: fade-out 0.38s ease forwards;
 }
 .slide {
   height: 100%;
@@ -2812,20 +2817,45 @@ button:disabled {
   background: linear-gradient(180deg, #f4f4fa, #fbfbfe);
   border-left: 1px solid rgba(255, 255, 255, 0.9);
   box-shadow: -20px 0 60px rgba(8, 30, 60, 0.25);
-  animation: slidein 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+  animation: slide-in 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.slide.out {
+  animation: slide-out 0.38s cubic-bezier(0.32, 0.72, 0, 1) forwards;
 }
 [data-theme='dark'] .slide {
   background: linear-gradient(180deg, #2b2b2f, #303034);
   border-left-color: rgba(255, 255, 255, 0.1);
 }
-@keyframes slidein {
+@keyframes slide-in {
   from {
-    transform: translateX(30px);
-    opacity: 0;
+    transform: translateX(100%);
   }
   to {
     transform: none;
+  }
+}
+@keyframes slide-out {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes fade-out {
+  from {
     opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ov-side,
+  .ov-side.out,
+  .slide,
+  .slide.out {
+    animation-duration: 0.01s;
   }
 }
 .slide-hd {
