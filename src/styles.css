@@ -3083,6 +3083,15 @@ button:disabled {
   background: var(--accent-grad);
   color: #fff;
 }
+/* Card in view: same highlight as the current node of the progress bar. */
+.wiz-n.cur {
+  border-color: var(--accent);
+  color: var(--accent-text);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+.wiz-n.ok.cur {
+  color: #fff;
+}
 .wiz-n .i {
   width: 14px;
   height: 14px;
@@ -3092,6 +3101,7 @@ button:disabled {
   position: sticky;
   bottom: 8px;
   z-index: 6;
+  margin: 0 21px; /* same inset as the banners inside the step cards (card border + padding) */
   display: flex;
   align-items: center;
   gap: 14px;

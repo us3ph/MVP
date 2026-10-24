@@ -144,7 +144,7 @@ export default function OrderWizard({ mode, kind, source, referentials: ref, pro
           return (
             <section key={s.key} id={cardId(s.key)} className={clsx('c formcard wiz-card', ok && 'ok', s.key === current && 'cur')}>
               <div className="form-head">
-                <span className={clsx('wiz-n', ok && 'ok')} aria-hidden="true">
+                <span className={clsx('wiz-n', ok && 'ok', s.key === current && 'cur')} aria-hidden="true">
                   {ok ? <Icon name="check-mark" /> : i + 1}
                 </span>
                 <div style={{ flex: 1 }}>
