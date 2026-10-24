@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icon from './Icon';
-import cover from '../assets/login-cover.jpg'; // UM6P campus photo under the brand tint (see login-cover.LICENSE.txt)
+import cover from '../assets/login-cover.jpg'; // cover picture under the brand tint (see login-cover.LICENSE.txt)
 
 // « Connexion à l’interface »: username / password, then SSO.
 export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {

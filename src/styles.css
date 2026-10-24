@@ -3894,8 +3894,8 @@ button:disabled {
 /* ---- Login ---- */
 /* Full-screen split: the form on the left half, the tinted city photo on the right (UM6P orange). */
 .login {
-  --lg-a: #e8341f;
-  --lg-b: #ff7a3c;
+  --lg-a: #d9260f;
+  --lg-b: #f5602e;
   --lg-grad: linear-gradient(90deg, var(--lg-a), var(--lg-b));
   --lg-card: #fff;
   --lg-field: #fff;
@@ -4160,7 +4160,8 @@ button:disabled {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(232, 52, 31, 0.8), rgba(255, 122, 60, 0.76));
+  /* deep red at the top fading to a lighter orange at the bottom, as in the reference */
+  background: linear-gradient(180deg, rgba(214, 36, 20, 0.8) 0%, rgba(230, 64, 30, 0.68) 50%, rgba(240, 100, 48, 0.52) 100%);
 }
 .login-cover-main {
   position: relative;
