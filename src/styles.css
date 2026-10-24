@@ -998,7 +998,6 @@ button.sel:hover {
   text-align: center;
   min-width: 0;
 }
-.nt,
 .dt {
   text-align: left;
 }
@@ -1018,25 +1017,28 @@ button.sel:hover {
   font-variant-numeric: tabular-nums;
   color: #17171f;
 }
+/* Nature column: the label block (as wide as the widest label) is centred under the column title and
+   its text is centred too; the kind icon hangs to the left of the block so icons align row to row. */
 .nt {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 155px; /* icon 30 + gap 10 + widest label: a fixed block centred under the column title */
+  position: relative;
+  width: 115px;
   justify-self: center;
+  text-align: center;
 }
 .nt .h {
   white-space: nowrap;
 }
-/* Kind icon drawn like the sidebar entries (outline, no tile); the slot keeps the tile's 30px width. */
 .nt-ic {
+  position: absolute;
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
   width: 30px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #2b2b36;
-  flex: none;
 }
 .nt-ic .i {
   width: 19px;
@@ -1045,7 +1047,6 @@ button.sel:hover {
 [data-theme='dark'] .nt-ic {
   color: #d2d2d8;
 }
-
 .th > div:nth-child(2) {
   white-space: nowrap;
 }
