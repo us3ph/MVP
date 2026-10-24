@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icon from './Icon';
-import usePopover from './usePopover';
+import usePopover from '../hooks/usePopover';
 
 const DOW = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 const pad = (n) => String(n).padStart(2, '0');
@@ -23,7 +23,7 @@ function monthGrid(view) {
 }
 
 // Date input with a popover calendar styled like the rest of the app. `value` is an ISO date string or ''.
-export default function DateField({ id, value, onChange, placeholder = 'jj/mm/aaaa' }) {
+export default function DateField({ id, value, onChange, placeholder = 'jj/mm/aaaa', disabled = false }) {
   const { ref, open, setOpen } = usePopover();
   const [view, setView] = useState(() => fromISO(value) || new Date());
   const today = toISO(new Date());
@@ -46,6 +46,7 @@ export default function DateField({ id, value, onChange, placeholder = 'jj/mm/aa
         className={'pick' + (open ? ' open' : '') + (value ? '' : ' pick-blank')}
         aria-haspopup="dialog"
         aria-expanded={open}
+        disabled={disabled}
         onClick={openCal}
       >
         <b>{fmtFR(value) || placeholder}</b>

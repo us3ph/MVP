@@ -1,10 +1,10 @@
 import Icon from './Icon';
-import { plural } from '../data/missions';
+import { plural } from '../lib/format';
 
 export default function StatCards({ missions, onNavigate }) {
-  const enCours = missions.filter((m) => m.status === 'En cours');
-  const valid = missions.filter((m) => m.status === 'Validé');
-  const drafts = missions.filter((m) => m.status === 'Brouillon');
+  const enCours = missions.filter((m) => m.status === 'pending');
+  const valid = missions.filter((m) => m.status === 'validated');
+  const drafts = missions.filter((m) => m.status === 'draft');
   const intl = missions.filter((m) => m.kind === 'international');
 
   const cards = [

@@ -153,7 +153,87 @@ const PATHS = {
   ),
 };
 
+// Names that are not in the mockup set come from lucide-react (same stroke style); the component
+// API stays <Icon name="…" /> so screens never import an icon library directly.
+import {
+  ArrowLeft,
+  ArrowRight,
+  Ban,
+  BedDouble,
+  BookmarkMinus,
+  BookmarkPlus,
+  CalendarClock,
+  Check,
+  ChevronDown,
+  CircleMinus,
+  Clock,
+  Coins,
+  Download,
+  EyeOff,
+  FileCheck,
+  FilePen,
+  FilePlus,
+  KeyRound,
+  ListChecks,
+  Lock,
+  Luggage,
+  Mail,
+  MessageSquarePlus,
+  Package,
+  Paperclip,
+  Percent,
+  Receipt,
+  Ticket,
+  TrainFront,
+  TriangleAlert,
+  Undo2,
+  UserRoundCog,
+  Users,
+  Utensils,
+  Wallet,
+} from 'lucide-react';
+
+const LUCIDE = {
+  download: Download,
+  edit: FilePen,
+  undo: Undo2,
+  'minus-circle': CircleMinus,
+  'bookmark-plus': BookmarkPlus,
+  'bookmark-minus': BookmarkMinus,
+  'comment-plus': MessageSquarePlus,
+  'note-add': FileCheck,
+  'file-plus': FilePlus,
+  lock: Lock,
+  key: KeyRound,
+  mail: Mail,
+  train: TrainFront,
+  bag: Package,
+  bed: BedDouble,
+  utensils: Utensils,
+  ticket: Ticket,
+  wallet: Wallet,
+  coins: Coins,
+  receipt: Receipt,
+  'arrow-left': ArrowLeft,
+  'arrow-right': ArrowRight,
+  clock: Clock,
+  delegate: UserRoundCog,
+  users: Users,
+  ban: Ban,
+  'list-check': ListChecks,
+  chevd: ChevronDown,
+  'briefcase-clock': CalendarClock,
+  percent: Percent,
+  paperclip: Paperclip,
+  'eye-off': EyeOff,
+  'check-mark': Check,
+  alert: TriangleAlert,
+  suitcase: Luggage,
+};
+
 export default function Icon({ name, style, className = 'i' }) {
+  const Lucide = !PATHS[name] && LUCIDE[name];
+  if (Lucide) return <Lucide className={className} style={style} strokeWidth={1.8} aria-hidden="true" />;
   return (
     <svg className={className} style={style} viewBox="0 0 24 24" aria-hidden="true">
       {PATHS[name]}

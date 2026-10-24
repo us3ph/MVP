@@ -1,5 +1,6 @@
 import Icon from './Icon';
 
+// Page title plus the theme switch and the UM6P mark. Profile, notifications and logout live in the sidebar.
 export default function PageHeader({ title, subtitle, theme, onToggleTheme }) {
   const dark = theme === 'dark';
   const label = dark ? 'Passer en mode clair' : 'Passer en mode sombre';
