@@ -3900,6 +3900,8 @@ button:disabled {
   --lg-grad: linear-gradient(90deg, var(--lg-a), var(--lg-b));
   --lg-bg: #f7f3f1;
   --lg-card: #fff;
+  /* Form half: frosted glass over the fibres (tint + backdrop blur). */
+  --lg-glass: rgba(255, 255, 255, 0.72);
   --lg-field: #fff;
   --lg-line: #e2e2ea;
   /* Rim of the SSO button (SpecularButton baseColor / lineColor), reused by the focused fields. */
@@ -3915,6 +3917,7 @@ button:disabled {
 [data-theme='dark'] .login {
   --lg-bg: #101013;
   --lg-card: #1c1c1f;
+  --lg-glass: rgba(28, 28, 31, 0.58);
   --lg-field: #27272b;
   --lg-line: rgba(255, 255, 255, 0.12);
   --lg-rim: #6a6a72;
@@ -3970,7 +3973,7 @@ button:disabled {
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--lg-line);
-  background: var(--lg-card);
+  background: transparent;
   box-shadow:
     0 40px 90px -40px rgba(70, 25, 12, 0.4),
     0 2px 12px rgba(70, 25, 12, 0.06);
@@ -3989,6 +3992,9 @@ button:disabled {
   gap: 10px;
   padding: 48px 56px;
   color: var(--text);
+  background: var(--lg-glass);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  backdrop-filter: blur(18px) saturate(1.2);
 }
 .login-welcome {
   font-size: 11.5px;
