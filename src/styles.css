@@ -3892,6 +3892,36 @@ button:disabled {
 }
 
 /* ---- Login ---- */
+/* Open Sauce One (SIL OFL 1.1, see assets/fonts/OpenSauceOne.LICENSE.txt), self-hosted; the login
+   page is set in it, including the wordmark. */
+@font-face {
+  font-family: 'Open Sauce One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/OpenSauceOne-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sauce One';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./assets/fonts/OpenSauceOne-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sauce One';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./assets/fonts/OpenSauceOne-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sauce One';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('./assets/fonts/OpenSauceOne-ExtraBold.ttf') format('truetype');
+}
 /* Full-screen GhostFibers background; a rounded split card floats in the middle: the form on the
    left half, the tinted city photo on the right (UM6P orange). */
 .login {
@@ -3912,6 +3942,7 @@ button:disabled {
   display: flex;
   padding: 24px;
   overflow: auto;
+  font-family: 'Open Sauce One', Inter, system-ui, sans-serif;
   background: var(--lg-bg);
 }
 [data-theme='dark'] .login {
@@ -4003,10 +4034,9 @@ button:disabled {
   text-transform: uppercase;
   color: var(--muted);
 }
-/* Wordmark: Manrope extra-bold, sized so « Travel & Expense » stays on one line on both sides. */
+/* Wordmark: Open Sauce One extra-bold, sized so « Travel & Expense » stays on one line on both sides. */
 .login-brand,
 .login-cover-title {
-  font-family: Manrope, Inter, system-ui, sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   white-space: nowrap;
@@ -4117,18 +4147,6 @@ button:disabled {
 }
 .login .specular-button.login-go:hover {
   filter: brightness(1.05);
-}
-.login-help {
-  font-size: 11.5px;
-  color: var(--muted);
-}
-.login-link {
-  font-weight: 700;
-  color: var(--lg-a);
-  text-decoration: none;
-}
-.login-link:hover {
-  text-decoration: underline;
 }
 .login-or {
   width: 100%;

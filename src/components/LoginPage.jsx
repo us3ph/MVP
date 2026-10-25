@@ -100,12 +100,6 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
           >
             {busy ? 'Connexion…' : 'Se connecter'}
           </SpecularButton>
-          <div className="login-help">
-            Problème de connexion ?{' '}
-            <a href="mailto:support@um6p.ma" className="login-link">
-              Contacter le support
-            </a>
-          </div>
 
           <div className="login-or">
             <span>Ou</span>
@@ -149,7 +143,7 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
             <div className="login-cover-title">
               Travel <em>&amp;</em> Expense
             </div>
-            <p className="login-cover-text">La plateforme UM6P pour vos déplacements : ordres de mission, avances en devises, rétrocessions et notes de frais, du départ jusqu’au remboursement.</p>
+            <p className="login-cover-text">Vos déplacements professionnels, de l’ordre de mission au remboursement.</p>
           </div>
           <div className="login-cover-foot">
             <span className="brand" aria-label="UM6P">
