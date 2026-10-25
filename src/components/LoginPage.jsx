@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Icon from './Icon';
+import SpecularButton from './ui/SpecularButton';
 import cover from '../assets/login-cover.jpg'; // cover picture under the brand tint (see login-cover.LICENSE.txt)
 
 // « Connexion à l’interface »: username / password, then SSO.
@@ -58,9 +59,28 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
             </button>
           </label>
           {error && <div className="login-err">{error}</div>}
-          <button type="submit" className="login-go" disabled={busy}>
+          <SpecularButton
+            type="submit"
+            size="md"
+            className="login-go"
+            radius={999}
+            tint="#d9260f"
+            tintOpacity={1}
+            textColor="#ffffff"
+            lineColor="#ffffff"
+            baseColor="#ffb39c"
+            intensity={1}
+            idleIntensity={0.4}
+            shineSize={12}
+            shineFade={40}
+            thickness={1.4}
+            glow={1}
+            followMouse
+            proximity={260}
+            disabled={busy}
+          >
             {busy ? 'Connexion…' : 'Se connecter'}
-          </button>
+          </SpecularButton>
           <div className="login-help">
             Problème de connexion ?{' '}
             <a href="mailto:support@um6p.ma" className="login-link">
@@ -72,7 +92,27 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
             <span>Ou</span>
           </div>
           <div className="login-alt">Continuer avec votre compte UM6P</div>
-          <button type="button" className="login-sso" disabled={busy} onClick={() => run(onSso)}>
+          <SpecularButton
+            type="button"
+            size="md"
+            className="login-sso"
+            radius={999}
+            tint={dark ? '#ffffff' : '#d9260f'}
+            tintOpacity={dark ? 0.06 : 0.05}
+            textColor={dark ? '#f2f2f5' : '#17171f'}
+            lineColor={dark ? '#ffffff' : '#d9260f'}
+            baseColor={dark ? '#6a6a72' : '#e9b8ad'}
+            intensity={1}
+            idleIntensity={0.45}
+            shineSize={12}
+            shineFade={40}
+            thickness={1.3}
+            glow={1}
+            followMouse
+            proximity={260}
+            disabled={busy}
+            onClick={() => run(onSso)}
+          >
             <span className="brand sm" aria-hidden="true">
               {['U', 'M', '6', 'P'].map((ch) => (
                 <span key={ch} className="brand-ch">
@@ -81,7 +121,7 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
               ))}
             </span>
             Se connecter avec SSO
-          </button>
+          </SpecularButton>
         </form>
 
         <aside className="login-cover" style={{ backgroundImage: `url(${cover})` }}>
