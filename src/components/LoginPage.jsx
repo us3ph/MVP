@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Icon from './Icon';
 import SpecularButton from './ui/SpecularButton';
 import GhostFibers from './ui/GhostFibers';
+import TravelLogo from './ui/TravelLogo';
 import cover from '../assets/login-cover.jpg'; // cover picture under the brand tint (see login-cover.LICENSE.txt)
 
 // « Connexion à l’interface »: username / password, then SSO. The card floats over a full-screen
@@ -59,7 +60,6 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
         >
           <div className="login-welcome">Bienvenue sur</div>
           <div className="login-brand">
-            <Icon name="suitcase" className="i login-brand-ic" />
             <span>
               Travel <em>&amp;</em> Expense
             </span>
@@ -145,7 +145,7 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
 
         <aside className="login-cover" style={{ backgroundImage: `url(${cover})` }}>
           <div className="login-cover-main">
-            <Icon name="suitcase" className="i login-cover-ic" />
+            <TravelLogo className="login-cover-ic" />
             <div className="login-cover-title">
               Travel <em>&amp;</em> Expense
             </div>

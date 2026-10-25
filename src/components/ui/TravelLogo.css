@@ -1,0 +1,136 @@
+/* Travel & Expense logo mark. The vehicles leave the frame while they move, hence overflow visible. */
+.travel-logo {
+  display: block;
+  overflow: visible;
+}
+
+.travel-logo__plane,
+.travel-logo__car,
+.travel-logo__trail {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+/* The car only appears during the animation. */
+.travel-logo__car {
+  opacity: 0;
+}
+
+/* One 40 s cycle: each vehicle stays parked for 15 s, the changeovers take 2–3 s.
+     0.0–15.0 s  ( 0–37.5 %)  plane parked on the ticket
+    15.0–17.2 s  (37.5–43 %)  plane climbs away up-right and fades out
+    17.2–19.6 s  (43–49 %)    car drives in from the left and parks where the plane was
+    19.6–34.6 s  (49–86.5 %)  car parked
+    34.6–36.6 s  (86.5–91.5 %) car pulls away to the right and fades out
+    36.8–40.0 s  (92–100 %)   plane glides back in from the lower left and lands
+   The two dashes act as motion lines for whichever vehicle is parked. */
+.travel-logo--animated .travel-logo__plane {
+  animation: travel-logo-plane 40s linear infinite;
+}
+
+.travel-logo--animated .travel-logo__car {
+  animation: travel-logo-car 40s linear infinite;
+}
+
+.travel-logo--animated .travel-logo__trail {
+  animation: travel-logo-trail 40s linear infinite;
+}
+
+@keyframes travel-logo-plane {
+  0%,
+  37.5% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.8, 0.3);
+  }
+  40% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.8, 0.3);
+  }
+  43% {
+    transform: translate(70px, -64px) rotate(-10deg) scale(0.86);
+    opacity: 0;
+  }
+  43.1%,
+  92% {
+    transform: translate(-80px, 54px) rotate(4deg) scale(0.9);
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  96% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes travel-logo-car {
+  0%,
+  43% {
+    transform: translate(-130px, 0);
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.25, 1);
+  }
+  45.5% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.25, 1);
+  }
+  49%,
+  86.5% {
+    transform: translate(0, 0);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4);
+  }
+  89% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4);
+  }
+  91.5% {
+    transform: translate(140px, 0);
+    opacity: 0;
+  }
+  91.6%,
+  100% {
+    transform: translate(-130px, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes travel-logo-trail {
+  0%,
+  37.5% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  40.5%,
+  46% {
+    opacity: 0;
+    transform: translate(10px, 0);
+  }
+  48.5%,
+  86.5% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  89%,
+  95% {
+    opacity: 0;
+    transform: translate(-10px, 0);
+  }
+  99%,
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .travel-logo--animated .travel-logo__plane,
+  .travel-logo--animated .travel-logo__car,
+  .travel-logo--animated .travel-logo__trail {
+    animation: none;
+  }
+}

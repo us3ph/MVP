@@ -3990,7 +3990,7 @@ button:disabled {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 48px 56px;
+  padding: 48px 44px;
   color: var(--text);
   background: var(--lg-glass);
   -webkit-backdrop-filter: blur(18px) saturate(1.2);
@@ -4003,14 +4003,17 @@ button:disabled {
   text-transform: uppercase;
   color: var(--muted);
 }
-.login-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 27px;
+/* Wordmark: Manrope extra-bold, sized so « Travel & Expense » stays on one line on both sides. */
+.login-brand,
+.login-cover-title {
+  font-family: Manrope, Inter, system-ui, sans-serif;
   font-weight: 800;
-  letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+.login-brand {
+  font-size: 30px;
+  letter-spacing: 0.04em;
   line-height: 1;
 }
 .login-brand span {
@@ -4022,11 +4025,6 @@ button:disabled {
 .login-brand em {
   font-style: normal;
   font-weight: 500;
-}
-.login-brand-ic {
-  width: 34px;
-  height: 34px;
-  color: var(--lg-a);
 }
 .login-lead {
   margin: 4px 0 18px;
@@ -4197,16 +4195,14 @@ button:disabled {
   gap: 8px;
 }
 .login-cover-ic {
-  width: 62px;
-  height: 62px;
+  width: auto;
+  height: 56px;
   color: #fff;
-  stroke-width: 1.6;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.18));
 }
 .login-cover-title {
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 34px;
+  letter-spacing: 0.04em;
   line-height: 1.1;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
 }
