@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import Icon from './Icon';
 import SpecularButton from './ui/SpecularButton';
+import GhostFibers from './ui/GhostFibers';
 import cover from '../assets/login-cover.jpg'; // cover picture under the brand tint (see login-cover.LICENSE.txt)
 
-// « Connexion à l’interface »: username / password, then SSO.
+// « Connexion à l’interface »: username / password, then SSO. The card floats over a full-screen
+// GhostFibers background drawn in the UM6P colours (ink on the light theme, glow on the dark one).
 export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -26,6 +28,23 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
 
   return (
     <div className="login">
+      <GhostFibers
+        className="login-bg"
+        aria-hidden="true"
+        glowColor="#f5602e"
+        secondaryColor="#d9260f"
+        gradient="along"
+        layers={3}
+        twist={1.2}
+        threads={72}
+        fiberStyle="dots"
+        depthOfField={0.85}
+        hoverEffect="focus"
+        vignette={0.35}
+        lightMode={!dark}
+        intro
+        mouseInteraction
+      />
       <button className="theme-btn login-theme" aria-label={dark ? 'Passer en mode clair' : 'Passer en mode sombre'} onClick={onToggleTheme}>
         <Icon name={dark ? 'sun' : 'moon'} />
       </button>
