@@ -172,7 +172,7 @@ export default function OrderWizard({ mode, kind, source, referentials: ref, pro
           <button type="button" className="gbtn lg" disabled={busy} onClick={save}>
             Sauvegarder
           </button>
-          <button type="button" className="go lg" disabled={busy} onClick={submit} title={completed < steps.length ? 'Complétez toutes les étapes pour soumettre' : 'Soumettre aux validateurs'}>
+          <button type="button" className="go lg accent" disabled={busy} onClick={submit} title={completed < steps.length ? 'Complétez toutes les étapes pour soumettre' : 'Soumettre aux validateurs'}>
             <Icon name="send" style={{ width: 14, height: 14 }} />
             Soumettre
           </button>

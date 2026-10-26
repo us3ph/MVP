@@ -22,6 +22,14 @@
   --accent-soft: rgba(11, 111, 224, 0.08);
   --accent-ring: rgba(11, 111, 224, 0.18);
   --accent-shadow: rgba(11, 111, 224, 0.35);
+  /* Orange buttons, built like the blue « Soumettre »: solid buttons use the « Se connecter » colours
+     as a top-to-bottom gradient with white text and a soft shadow; hovers and toggles use a light
+     tint of the same orange with orange text, as the blue design did. */
+  --tint-solid: linear-gradient(180deg, #f5602e, #d9260f);
+  --tint-shadow: rgba(217, 38, 15, 0.35);
+  --tint: rgba(230, 70, 30, 0.12);
+  --tint-faint: rgba(230, 70, 30, 0.07);
+  --tint-text: #c42a0e;
   --danger: #d9262f;
   --danger-soft: rgba(217, 38, 47, 0.1);
   --ok: #17803a;
@@ -176,7 +184,7 @@ input:focus-visible {
     background 0.15s;
 }
 .sbt:hover {
-  color: #0b66cf;
+  color: var(--tint-text);
 }
 .gh {
   display: flex;
@@ -209,16 +217,16 @@ input:focus-visible {
   transition: background 0.15s;
 }
 .it:hover {
-  background: rgba(11, 111, 224, 0.07);
+  background: var(--tint-faint);
 }
 .it .i {
   color: #2b2b36;
 }
 .it.on {
-  background: linear-gradient(180deg, #2e8eff, #0b6fe0);
+  background: var(--tint-solid);
   color: #fff;
   font-weight: 500;
-  box-shadow: 0 3px 8px rgba(11, 111, 224, 0.35);
+  box-shadow: 0 3px 8px var(--tint-shadow);
 }
 .it.on .i {
   color: #fff;
@@ -281,7 +289,7 @@ input:focus-visible {
 }
 .theme-btn:hover {
   background: #dedee8;
-  color: #0b66cf;
+  color: var(--tint-text);
 }
 .theme-btn:active {
   transform: scale(0.94);
@@ -387,11 +395,11 @@ input:focus-visible {
   height: 26px;
   padding: 0 14px;
   border-radius: 7px;
-  background: linear-gradient(180deg, #2e8eff, #0b6fe0);
+  background: var(--tint-solid);
   color: #fff;
   font-size: 12px;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(11, 111, 224, 0.35);
+  box-shadow: 0 2px 6px var(--tint-shadow);
   transition: filter 0.15s;
 }
 .go:hover {
@@ -403,6 +411,12 @@ input:focus-visible {
   padding: 0 16px;
   font-size: 12.5px;
   border-radius: 10px;
+}
+/* Blue primary button: the order wizard's « Soumettre » keeps the original blue, to match the current
+   step's border and the progress line beside it. */
+.go.accent {
+  background: var(--accent-grad);
+  box-shadow: 0 2px 6px rgba(11, 111, 224, 0.35);
 }
 
 /* ---- Cost card ---- */
@@ -914,11 +928,11 @@ button.sel:hover {
   background: #dedee8;
 }
 .sel.on {
-  background: #dfeeff;
-  color: #0b66cf;
+  background: var(--tint);
+  color: var(--tint-text);
 }
 .sel.on .i {
-  color: #0b66cf;
+  color: var(--tint-text);
 }
 .srch {
   flex: 1;
@@ -962,9 +976,9 @@ button.sel:hover {
   background: #dedee8;
 }
 .chip.on {
-  background: linear-gradient(180deg, #2e8eff, #0b6fe0);
+  background: var(--tint-solid);
   color: #fff;
-  box-shadow: 0 2px 6px rgba(11, 111, 224, 0.35);
+  box-shadow: 0 2px 6px var(--tint-shadow);
 }
 .th,
 .tr {
@@ -1140,8 +1154,8 @@ button.sel:hover {
     color 0.15s;
 }
 .rb:hover {
-  background: rgba(11, 111, 224, 0.12);
-  color: #0b66cf;
+  background: var(--tint);
+  color: var(--tint-text);
 }
 .rb .i {
   width: 16px;
@@ -1302,16 +1316,16 @@ button.sel:hover {
 }
 .pop-item:hover,
 .pop-item:focus-visible {
-  background: rgba(11, 111, 224, 0.08);
+  background: var(--tint-faint);
 }
 .pop-item.on {
   font-weight: 600;
-  color: #0b66cf;
+  color: var(--tint-text);
 }
 .pop-item .i {
   width: 13px;
   height: 13px;
-  color: #0b66cf;
+  color: var(--tint-text);
   opacity: 0;
 }
 .pop-item.on .i {
@@ -1749,6 +1763,9 @@ button.sel:hover {
   --accent-soft: rgba(111, 179, 255, 0.15);
   --accent-ring: rgba(46, 142, 255, 0.25);
   --accent-shadow: rgba(0, 0, 0, 0.35);
+  --tint: rgba(255, 122, 60, 0.2);
+  --tint-faint: rgba(255, 122, 60, 0.1);
+  --tint-text: #ffab8a;
   --danger: #ff6b6b;
   --danger-soft: rgba(255, 107, 107, 0.14);
   --ok: #5fd37a;
@@ -1852,13 +1869,14 @@ button.sel:hover {
   background: #47474c;
   color: #fff;
 }
-/* The banner's Ouvrir button uses the selection grey instead of blue in dark mode. */
-[data-theme='dark'] .banner .go {
+/* In dark mode the main buttons use the selection grey of the active sidebar entry instead of
+   orange; the order wizard's blue « Soumettre » (.go.accent) keeps its colour. */
+[data-theme='dark'] .go:not(.accent) {
   background: #38383d;
   color: #fff;
   box-shadow: none;
 }
-[data-theme='dark'] .banner .go:hover {
+[data-theme='dark'] .go:not(.accent):hover {
   background: #47474c;
   filter: none;
 }
@@ -1923,11 +1941,17 @@ button.sel:hover {
   color: #9b9ba3;
 }
 [data-theme='dark'] .sel.on {
-  background: rgba(46, 142, 255, 0.22);
-  color: #8cc2ff;
+  background: var(--tint);
+  color: var(--tint-text);
 }
 [data-theme='dark'] .sel.on .i {
-  color: #8cc2ff;
+  color: var(--tint-text);
+}
+/* The dark .chip rule above has the same specificity as .chip.on and comes later, so the active chip
+   needs its own dark rule to stay visible. */
+[data-theme='dark'] .chip.on {
+  background: var(--tint-solid);
+  color: #fff;
 }
 /* Quick-action tiles: the same hues, deepened */
 [data-theme='dark'] .qa {
@@ -1981,8 +2005,8 @@ button.sel:hover {
   color: #9b9ba3;
 }
 [data-theme='dark'] .rb:hover {
-  background: rgba(111, 179, 255, 0.15);
-  color: #8cc2ff;
+  background: var(--tint);
+  color: var(--tint-text);
 }
 /* Form controls */
 [data-theme='dark'] .fld input,
@@ -2016,7 +2040,9 @@ button.sel:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 [data-theme='dark'] .pop-item.on,
-[data-theme='dark'] .pop-item .i,
+[data-theme='dark'] .pop-item .i {
+  color: var(--tint-text);
+}
 [data-theme='dark'] .cal-nav:hover,
 [data-theme='dark'] .cal-ft button {
   color: #8cc2ff;
@@ -2202,7 +2228,7 @@ button:disabled {
   height: 18px;
   padding: 0 5px;
   border-radius: 9px;
-  background: var(--accent-grad);
+  background: var(--tint-solid);
   color: #fff;
   font-size: 10.5px;
   font-weight: 700;
