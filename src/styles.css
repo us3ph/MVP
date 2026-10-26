@@ -2662,6 +2662,10 @@ button:disabled {
   overflow-y: auto;
   scrollbar-width: thin;
 }
+/* The calendar is a fixed grid: show it whole (usePopover still caps it to the room on screen). */
+.pop.cal {
+  max-height: none;
+}
 .pop-text {
   display: flex;
   flex-direction: column;
