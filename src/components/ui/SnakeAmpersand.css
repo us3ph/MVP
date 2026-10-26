@@ -1,0 +1,63 @@
+/* Single-stroke ampersand, sized like a glyph of the surrounding text. */
+.snake-amp {
+  display: inline-block;
+  width: 0.667em;
+  height: 0.8em;
+  vertical-align: -0.06em;
+  line-height: 0;
+}
+
+.snake-amp svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* pathLength="1" on the path makes the dash units fractions of the stroke: offset 0 = fully drawn,
+   offset 1 = retracted to a dot at the start. */
+.snake-amp path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+}
+
+/* 40 s cycle shared with TravelLogo.css: a quick retract, then the snake slithers out and forms the
+   « & » again, as the car pulls in (43–49 %) and as the plane lands (92–100 %). */
+.snake-amp--animated path {
+  animation: snake-amp-draw 40s linear infinite;
+}
+
+@keyframes snake-amp-draw {
+  0%,
+  43% {
+    stroke-dashoffset: 0;
+    animation-timing-function: ease-in;
+  }
+  43.6% {
+    stroke-dashoffset: 1;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1);
+  }
+  49%,
+  92% {
+    stroke-dashoffset: 0;
+    animation-timing-function: ease-in;
+  }
+  92.6% {
+    stroke-dashoffset: 1;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1);
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snake-amp--animated path {
+    animation: none;
+  }
+}

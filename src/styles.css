@@ -4201,8 +4201,8 @@ button:disabled {
   content: '';
   position: absolute;
   inset: 0;
-  /* deep red at the top fading to a lighter orange at the bottom, as in the reference */
-  background: linear-gradient(180deg, rgba(214, 36, 20, 0.8) 0%, rgba(230, 64, 30, 0.68) 50%, rgba(240, 100, 48, 0.52) 100%);
+  /* brand tint over the photo: red to orange, on the diagonal */
+  background: linear-gradient(135deg, rgba(232, 52, 31, 0.8), rgba(255, 122, 60, 0.76));
 }
 .login-cover-main {
   position: relative;
