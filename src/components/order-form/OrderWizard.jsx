@@ -16,6 +16,7 @@ import { useMissionMutations } from '../../queries';
 import { useToast } from '../../app/ToastProvider';
 import { todayISO } from '../../lib/format';
 import { META, defaultsFor } from './defaults';
+import useLinkedDates from './useLinkedDates';
 
 const cardId = (key) => `wiz-${key}`;
 
@@ -74,6 +75,8 @@ export default function OrderWizard({ mode, kind, source, referentials: ref, pro
   const [skipOpen, setSkipOpen] = useState(false);
   const form = useForm({ resolver: zodResolver(missionSchema), defaultValues: defaultsFor(mode, kind, source, ref, profile), mode: 'onTouched' });
   const { control, getValues, setValue, handleSubmit } = form;
+  // Transport and lodging dates come from the mission dates (and the legs) until the user edits them.
+  useLinkedDates(form);
   const validity = useStepValidity(control, steps);
   const current = useCurrentCard(keys);
   const busy = mm.save.isPending || mm.submit.isPending || mm.remove.isPending;

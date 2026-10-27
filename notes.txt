@@ -1,31 +1,68 @@
-role 1 = user / validator
-role 2(control de gestion) = user / admin / budget owner /  budget validator / validator
-role 3 = controleur / notes de frais
-role 4 = user / admin / order de mission /
-role 5 = user / delegation / validation
+==========================================================================================
+SECURITY & CALCULATION CHECKLIST — to protect when we build the backend (audit 27/10/2026)
+Amounts measured with the demo barème (km 3 MAD, meal 120 MAD, per diem 140 EUR, 1 EUR = 11 MAD).
+==========================================================================================
+
+A. BACKEND ONLY (the real protection — the browser can always be bypassed)
+  1. Never trust the browser. Ignore these fields when the client sends them: status, number,
+     collaborator, validators, timeline / approvals, advance.granted, costLines, estimatedCost,
+     actualCost, reimbursement, paymentDate. Whitelist the editable fields and recompute every
+     amount on the server from the barème.
+     (gamed today: made-up cost lines sent with the order → 99 999 MAD instead of 1 152)
+  2. Permissions. A user only reads / edits his own missions and notes de frais (check the owner on
+     every /missions/:id and /expense-reports/:id route). Status changes only through the workflow
+     endpoints (submit, recall, cancel, validate…) and only by the right role.
+  3. Overlapping orders. Refuse two orders for the same person on overlapping dates (double per diem
+     and meals), and watch back-to-back orders used to split a long stay (see D).
+  4. Advance reconciliation. A granted advance must always be settled: retained in the décompte or
+     returned by rétrocession. Declining both the rétrocession and the note de frais must not let
+     the user keep the advance.
+  5. Advance cap. Advance amount <= per diem entitlement (indemnité de séjour).
+  6. Session. SSO cookie with SameSite + CSRF protection (the app calls the API with credentials).
+  7. Deployment. The build must fail when VITE_API_URL is missing; otherwise the demo mock runs and
+     any username / password logs in.
+
+B. BACKEND AND FRONT END (same rules in src/lib/costing.js + src/schemas and in the backend)
+  1. Trajets must form one chain: ville d’affectation → mission cities → back, no duplicate legs,
+     cities consistent with the mission. Then the km allowance, the airport transfer (per
+     destination) and the intra-urban forfait count each real trip once.
+     (gamed today: car legs to a far unrelated city +3 816 MAD, car legs entered twice +1 032,
+      air legs entered 4 times +3 300, fake train leg inside the city +100 per day)
+  2. Lodging flat rate: no night paid on a day trip (today Math.max(1, nights) pays 1 night: +500).
+  3. Note de frais:
+     - receipt (justificatif) mandatory for every expense (today optional);
+     - hotel cap per night applied in the décompte: 1 500 MAD national / 200 EUR international
+       (today only shown in a text: +3 500 MAD on a 5 000 MAD invoice);
+     - no « Hébergement » invoice when the lodging flat rate was chosen or UM6P booked the hotel
+       (today both are paid: +1 500);
+     - invoice currencies limited to the mission’s currencies (a national invoice in EUR = ×11:
+       +15 000 MAD on a 1 500 invoice);
+     - expense dates within the mission dates.
+  4. Advance: amount <= per diem (front: message under the field; back: enforced).
+  5. Mission hours (national meals): flag hours that don’t match the trajets
+     (00:00–23:59 gives extra meals: +120 MAD per day) — at least highlight them for validators.
+  6. Transport and lodging dates must stay within the mission dates (today not checked).
+  7. International long stays (>= threshold, see D): the barème lists hébergement only for shorter
+     trips, but the app still adds the 85 €/night lodging flat rate when the lodging step is skipped
+     with « forfait » (15 days: +1 190 € on top of the 600 € forfait). Fix after HR answers D3.
+
+C. FRONT END ONLY
+  1. Don’t send server-owned fields back on save (status, validators, costLines, estimatedCost,
+     advance.granted…): strip them in the form / API layer.
+  2. Linked dates gap: when a departure follows the mission date, move a hand-set arrival by the
+     same number of days (overnight return flight: extending 22 → 24 keeps the arrival on the 23rd,
+     the trajet arrives before it leaves and the Transports step turns red).
+  3. Show the same errors as the backend before « Soumettre ».
 
 
-
-international =
-national =
-
-
-
-
-super admin = all
-
-
-super notes
+extra notes
 
 perfcentage / periorite / Participants should i keep them or remove them bsc they dont you them
 show Aérien only if more than 500k in national
 
 in order soit national or international should fill one of this soit Activité(s) or Description obligatoire
 
-in step Transports should the date come alrady from the step beofre in order misson
+// in step Transports should the date come alrady from the step before which mean in order misson
 also in Hébergement should the date come filled from the steps before
 
-
-
-
-
+Types de mission

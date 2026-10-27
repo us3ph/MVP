@@ -6,10 +6,12 @@ import { Field, TextArea } from '../ui/Field';
 import { useCities } from '../../queries';
 import { cityOptions } from '../../lib/refs';
 import { uid } from '../../lib/format';
+import { stayDates } from '../../lib/linkedDates';
 
-// Step 3 « Hébergement »: pre-filled from the mission, editable, can be skipped (see SkipLodgingModal).
+// Step 3 « Hébergement »: city from the mission, dates from the outbound arrival and the return departure
+// (or the mission dates), all editable; can be skipped (see SkipLodgingModal).
 export default function StepLodging({ referentials: ref }) {
-  const { control, register, watch, setValue, formState: { errors } } = useFormContext();
+  const { control, register, watch, getValues, setValue, formState: { errors } } = useFormContext();
   const country = watch('country') || ref.homeCity.countryCode;
   const skipped = watch('lodgingSkipped');
   const { data: cities = [] } = useCities(country);
@@ -29,7 +31,7 @@ export default function StepLodging({ referentials: ref }) {
             className="gbtn"
             onClick={() => {
               setValue('lodgingSkipped', null, { shouldDirty: true });
-              append({ id: uid('lod'), city: watch('cities')?.[0] || '', checkIn: watch('startDate'), checkOut: watch('endDate'), preferences: '' });
+              append({ id: uid('lod'), city: watch('cities')?.[0] || '', ...stayDates(getValues()), preferences: '' });
             }}
           >
             <Icon name="undo" />
@@ -68,9 +70,9 @@ export default function StepLodging({ referentials: ref }) {
           </div>
         </div>
       ))}
-      {fields.length === 0 && <div className="empty">Aucun hébergement. Ajoutez-en un (ville et dates pré-remplies depuis la mission) ou ignorez l’étape avec le bouton « Ignorer ».</div>}
+      {fields.length === 0 && <div className="empty">Aucun hébergement. Ajoutez-en un (ville et dates pré-remplies depuis la mission et vos trajets) ou ignorez l’étape avec le bouton « Ignorer ».</div>}
       {errors.lodgings?.message && <div className="fld-err">{errors.lodgings.message}</div>}
-      <button type="button" className="add-row" onClick={() => append({ id: uid('lod'), city: fields.length ? '' : watch('cities')?.[0] || '', checkIn: watch('startDate') || '', checkOut: watch('endDate') || '', preferences: '' })}>
+      <button type="button" className="add-row" onClick={() => append({ id: uid('lod'), city: fields.length ? '' : watch('cities')?.[0] || '', ...stayDates(getValues()), preferences: '' })}>
         {fields.length === 0 ? '+ Ajouter un hébergement' : '+ Ajouter un autre hébergement'}
       </button>
     </div>

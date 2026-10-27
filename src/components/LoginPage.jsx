@@ -5,21 +5,18 @@ import GhostFibers from './ui/GhostFibers';
 import TravelLogo from './ui/TravelLogo';
 import cover from '../assets/login-cover.jpg'; // cover picture under the brand tint (see login-cover.LICENSE.txt)
 
-// « Connexion à l’interface »: username / password, then SSO. The card floats over a full-screen
+// « Connexion à l’interface »: sign-in goes through the UM6P SSO only. The card floats over a full-screen
 // GhostFibers background drawn in the UM6P colours (ink on the light theme, glow on the dark one).
-export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [show, setShow] = useState(false);
+export default function LoginPage({ onSso, theme, onToggleTheme }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const dark = theme === 'dark';
 
-  const run = async (fn) => {
+  const sso = async () => {
     setBusy(true);
     setError('');
     try {
-      await fn();
+      await onSso();
     } catch (e) {
       setError(e.message || 'Connexion impossible.');
     } finally {
@@ -51,60 +48,15 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
       </button>
 
       <div className="login-card">
-        <form
-          className="login-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            run(() => onLogin({ username, password }));
-          }}
-        >
+        <div className="login-form">
           <div className="login-welcome">Bienvenue sur</div>
           <div className="login-brand">
             <span>
               Travel <em>&amp;</em> Expense
             </span>
           </div>
-          <p className="login-lead">Connectez-vous pour gérer vos ordres de mission, vos avances et vos notes de frais.</p>
+          <p className="login-lead">Connectez-vous avec votre compte UM6P pour gérer vos ordres de mission, vos avances et vos notes de frais.</p>
 
-          <label className="login-field">
-            <Icon name="profile" />
-            <input placeholder="Nom d’utilisateur" aria-label="Nom d’utilisateur" autoComplete="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </label>
-          <label className="login-field">
-            <Icon name="lock" />
-            <input type={show ? 'text' : 'password'} placeholder="Mot de passe" aria-label="Mot de passe" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button type="button" className="login-eye" aria-label={show ? 'Masquer le mot de passe' : 'Afficher le mot de passe'} title={show ? 'Masquer' : 'Afficher'} onClick={() => setShow((v) => !v)}>
-              <Icon name={show ? 'eye-off' : 'eye'} />
-            </button>
-          </label>
-          {error && <div className="login-err">{error}</div>}
-          <SpecularButton
-            type="submit"
-            size="md"
-            className="login-go"
-            radius={999}
-            tint="#d9260f"
-            tintOpacity={1}
-            textColor="#ffffff"
-            lineColor="#ffffff"
-            baseColor="#ffb39c"
-            intensity={1}
-            idleIntensity={0.4}
-            shineSize={12}
-            shineFade={40}
-            thickness={1.4}
-            glow={1}
-            followMouse
-            proximity={260}
-            disabled={busy}
-          >
-            {busy ? 'Connexion…' : 'Se connecter'}
-          </SpecularButton>
-
-          <div className="login-or">
-            <span>Ou</span>
-          </div>
-          <div className="login-alt">Continuer avec votre compte UM6P</div>
           <SpecularButton
             type="button"
             size="md"
@@ -124,7 +76,7 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
             followMouse
             proximity={260}
             disabled={busy}
-            onClick={() => run(onSso)}
+            onClick={sso}
           >
             <span className="brand sm" aria-hidden="true">
               {['U', 'M', '6', 'P'].map((ch) => (
@@ -133,9 +85,10 @@ export default function LoginPage({ onSso, onLogin, theme, onToggleTheme }) {
                 </span>
               ))}
             </span>
-            Se connecter avec SSO
+            {busy ? 'Connexion…' : 'Se connecter avec SSO'}
           </SpecularButton>
-        </form>
+          {error && <div className="login-err">{error}</div>}
+        </div>
 
         <aside className="login-cover" style={{ backgroundImage: `url(${cover})` }}>
           <div className="login-cover-main">

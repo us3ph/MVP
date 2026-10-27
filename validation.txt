@@ -1,0 +1,202 @@
+CALCULATION RULES TO VALIDATE — Travel & Expense
+Date: 27/10/2026
+
+Seventeen calculation rules need your decision before we build them into Travel & Expense.
+Each question gives the barème rule, a worked example and the options.
+Write the chosen option on its Decision line.
+Amounts follow barème V.2 2026, which HR confirmed is in force.
+
+
+==========================================================================================
+INTERNATIONAL PER DIEM
+==========================================================================================
+
+Q1. Per diem for stays of 15 days or more
+    Under 15 days, the barème pays 140 € per day. From 15 days, it pays 1,200 € per month,
+    prorated from the first day of the mission.
+    Example: 14 days = 14 × 140 € = 1,960 €.  15 days = 1,200 € × 15 / 30 = 600 €.
+      A. Apply the rule exactly as written: a 15-day stay pays less than a 14-day stay.
+      B. Another rule (please describe it).
+    Decision: ________
+
+Q2. Number of days in a month for the proration
+    The barème says the 1,200 € is prorated to the mission days, but not how many days a month counts.
+    Example for 15 days: 30-day month = 600 €. 31-day month = 580.65 €. 28-day month = 642.86 €.
+      A. Always 30 days.
+      B. The real number of days of the month in which the trip starts.
+    Decision: ________
+
+Q3. Lodging on stays of 15 days or more
+    The barème lists lodging only for stays under 15 days: UM6P hotel up to 300 € per night,
+    hotel invoice up to 200 €, or an 85 € flat rate.
+    Example for 15 days with the 85 € flat rate: 600 € without lodging,
+    or 600 € + 14 nights × 85 € = 1,790 € with it.
+      A. The 1,200 € monthly rate covers everything: no lodging is paid.
+      B. Lodging is paid on top, as for shorter stays.
+      C. UM6P books and pays the accommodation; no flat rate and no invoice.
+    Decision: ________
+
+Q4. Extensions and orders that follow each other
+    Because 15 days pays less than 14, one long trip can be split into several orders to be paid more.
+    Example: 28 days in one order = 1,120 €; as two 14-day orders = 3,920 €.
+    A 14-day order extended by 1 day = 600 €; a separate 1-day order instead = 2,100 €.
+      A. Count the per diem on the whole stay: extensions and orders that follow each other
+         for the same person and destination are added together.
+      B. Block a new order that overlaps or directly follows another one for the same destination.
+      C. Count each order separately, which allows the split.
+    Decision: ________
+
+Q5. Doctoral students
+    Barème V.2 2026 excludes doctoral students: their trips follow note de service 01262024.
+    The platform currently applies the same barème to everyone.
+      A. Doctoral students use the platform with their own barème.
+         Please share the note and say how we identify a doctoral student.
+      B. Doctoral students do not use this platform.
+    Decision: ________
+
+
+==========================================================================================
+LODGING
+==========================================================================================
+
+Q6. Lodging flat rate on a day trip
+    When the lodging step is skipped with the flat rate, the platform currently pays at least
+    one night, even for a same-day mission.
+    Example, national day trip: 500 MAD is paid for a night that did not happen.
+      A. No night, no lodging pay: nights = mission days − 1.
+      B. Always pay at least one night.
+    Decision: ________
+
+Q7. Hotel invoice above the cap
+    The barème caps hotel invoices at 1,500 MAD per night in Morocco and 200 € per night abroad.
+    The platform currently reimburses the full invoice.
+    Example, 1 night in Morocco with a 5,000 MAD invoice: 1,500 MAD with the cap, 5,000 MAD today.
+      A. Reimburse up to the cap per night; the collaborator pays the rest.
+      B. Reimburse in full once the validators approve it.
+    Decision: ________
+
+Q8. Flat rate and hotel invoice together
+    A collaborator who chose the lodging flat rate can still add a hotel invoice to the
+    expense report. Both are currently paid.
+    Example, 1 night in Morocco: 500 MAD flat rate + 1,500 MAD invoice = 2,000 MAD.
+      A. One or the other: no hotel invoice when the flat rate was chosen or UM6P booked the hotel.
+      B. Both can be paid.
+    Decision: ________
+
+
+==========================================================================================
+TRANSPORT
+==========================================================================================
+
+Q9. Which trips count for the mileage allowance
+    The personal-car allowance is 3 MAD per km. The platform currently counts every trip
+    entered, even repeated or unrelated to the mission.
+    Example, mission in Casablanca: Benguerir → Casablanca and back = 344 km = 1,032 MAD.
+    The same trips entered twice = 2,064 MAD. Trips to Oujda instead = 4,848 MAD.
+      A. The trips must form one chain: assignment city → mission cities → back, each trip once.
+      B. Trips stay free; the validators check them.
+    Decision: ________
+
+Q10. Airport transfer abroad
+    The barème pays 50 € "per destination and per trip". The platform currently pays 50 € for
+    each flight entered.
+    Example: Casablanca → Paris → Casablanca = 2 flights = 100 €.
+    The same flights entered 4 times = 400 €.
+      A. 50 € at each arrival and each departure abroad, on the one-chain itinerary of Q9:
+         Paris = 100 €.
+      B. 50 € once per destination city: Paris = 50 €.
+    Decision: ________
+
+Q11. City transport allowance in Morocco
+    The barème pays 100 MAD per day "only for people travelling by public transport".
+    The platform currently pays it as soon as one train or bus trip is entered.
+    Example: a 3-day mission by personal car, plus one short bus trip = 300 MAD.
+      A. Only when the whole trip is made by public transport, with no personal or service car.
+      B. As soon as one public transport trip is entered.
+    Decision: ________
+
+
+==========================================================================================
+NATIONAL MEALS
+==========================================================================================
+
+Q12. Mission hours used for meals
+    In Morocco, a 120 MAD meal is paid when the mission covers 12:00–14:00 for lunch or
+    19:30–21:30 for dinner. The hours come from the start and end times the collaborator declares.
+    Example, one day: 08:00 to 18:00 = 1 lunch = 120 MAD.
+    00:00 to 23:59 = lunch and dinner = 240 MAD.
+      A. Keep the declared hours; the validators check them against the trips.
+      B. Add departure and return times to the trips, and compute the meals from them.
+    Decision: ________
+
+
+==========================================================================================
+EXPENSE REPORT AND ADVANCE
+==========================================================================================
+
+Q13. Receipts
+    An expense can currently be submitted without a receipt.
+      A. A receipt is mandatory for every expense.
+      B. Optional below an amount: ________ MAD.
+    Decision: ________
+
+Q14. Invoice currency
+    Any currency, MAD, EUR or USD, can currently be chosen for any expense.
+    Example: a 1,500 MAD hotel in Morocco declared as 1,500 € becomes 16,500 MAD.
+      A. Missions in Morocco: MAD only. Missions abroad: the mission's currencies and MAD.
+      B. Free choice; the validators check it.
+    Decision: ________
+
+Q15. Maximum advance
+    The advance request has no upper limit. The screen shows the per diem it should match.
+    Example, 10 days abroad: per diem = 1,400 €, but any amount can currently be requested.
+      A. Advance up to the mission's per diem.
+      B. Advance up to the mission's estimated total cost.
+      C. No limit; the validators decide.
+    Decision: ________
+
+Q16. Settling the advance
+    A collaborator can currently decline both the expense report and the return of the unused
+    advance, and keep the whole advance.
+      A. A granted advance must always be settled: deducted in the expense report, or returned
+         with the treasury receipt. The mission stays open until then.
+      B. If it is not settled within the procedure's deadline, 15 days after returning from
+         abroad, payroll deducts it.
+    Decision: ________
+
+
+==========================================================================================
+EXCHANGE RATES
+==========================================================================================
+
+Q17. Which exchange rate to use
+    The platform currently converts with fixed indicative rates, 1 € = 11 MAD and 1 $ = 10 MAD,
+    for both the estimate and the expense report.
+    Example: a 1,400 € per diem is 15,400 MAD at 11, but 15,120 MAD if the bank applied 10.80.
+      A. Estimate with the indicative rates; expense report with the rate on the bank's
+         exchange slip, entered by finance.
+      B. One rate for both, updated every month by finance.
+    Decision: ________
+
+
+==========================================================================================
+SOURCES
+==========================================================================================
+
+- Barème Annexe 1, national trips, Direction du Capital Humain, 2023, signed:
+  "BAREME Décompte de frais", page 1.
+- Barème Annexe 2, international trips, version V.2 2026, 16 May 2026.
+  HR confirmed on 27/10/2026 that it is the version in force.
+- Current platform behaviour: the Travel & Expense estimate and expense report calculations,
+  checked on 27/10/2026.
+
+
+==========================================================================================
+VALIDATION
+==========================================================================================
+
+The decisions above are validated and will be implemented as written.
+
+Validated by: ____________________     Role: ____________________
+
+Date: ____________________             Signature: ____________________
