@@ -96,7 +96,6 @@ export default function Select({
         <div className="pop" role="listbox" aria-label={ariaLabel || prefix}>
           {searchable && (
             <label className="pop-search">
-              <Icon name="search" />
               <input autoFocus className="srch" placeholder={searchPlaceholder} aria-label={searchPlaceholder} value={q} onChange={(e) => setQ(e.target.value)} />
             </label>
           )}

@@ -2636,21 +2636,27 @@ button:disabled {
   width: 12px;
   height: 12px;
 }
+/* Search box of a searchable list: the input spans the whole bar (and drops the field look that
+   `.fld input` would give it when the list belongs to a form field). */
 .pop-search {
   display: flex;
   align-items: center;
-  gap: 6px;
-  height: 30px;
-  padding: 0 8px;
+  height: 34px;
+  padding: 0 12px;
   margin-bottom: 4px;
   border-radius: 8px;
   background: var(--chip);
 }
-.pop-search .i {
-  width: 13px;
-  height: 13px;
-  color: var(--faint);
-  opacity: 1;
+.pop-search input.srch,
+.pop-search input.srch:focus {
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  outline: 0;
+  font-size: 12.5px;
 }
 .pop-empty {
   padding: 8px 10px;
