@@ -115,6 +115,8 @@ export default function StepOrder({ referentials: ref, previousTotal = 0 }) {
                   options={countries}
                   placeholder="Choisir un pays…"
                   searchable
+                  searchPlaceholder="Rechercher un pays…"
+                  itemsLabel="pays"
                   onChange={(code) => {
                     field.onChange(code);
                     setValue('cities', [], { shouldDirty: true });
@@ -125,7 +127,7 @@ export default function StepOrder({ referentials: ref, previousTotal = 0 }) {
           </Field>
         )}
         <Field label="Ville" htmlFor="o-city" required error={errors.cities?.message} full={national}>
-          <Select id="o-city" value="" options={cityOptions(cityList)} placeholder={isFetching ? 'Chargement des villes…' : country ? 'Choisir une ville…' : 'Choisissez d’abord le pays'} searchable disabled={!country} onChange={addCity} />
+          <Select id="o-city" value="" options={cityOptions(cityList)} placeholder={isFetching ? 'Chargement des villes…' : country ? 'Choisir une ville…' : 'Choisissez d’abord le pays'} searchable searchPlaceholder="Rechercher une ville…" itemsLabel="villes" disabled={!country} onChange={addCity} />
         </Field>
         <div className="cities full">
           <div className="cities-hd">

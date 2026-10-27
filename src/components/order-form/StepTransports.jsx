@@ -42,7 +42,7 @@ export default function StepTransports({ referentials: ref }) {
           </div>
           <div className="form">
             <Field label="Ville de départ" htmlFor={`t-from-${i}`} required error={errors.transports?.[i]?.fromCity?.message}>
-              <Controller name={`transports.${i}.fromCity`} control={control} render={({ field }) => <Select id={`t-from-${i}`} value={field.value} options={options} placeholder="Choisir…" searchable clearable onChange={field.onChange} />} />
+              <Controller name={`transports.${i}.fromCity`} control={control} render={({ field }) => <Select id={`t-from-${i}`} value={field.value} options={options} placeholder="Choisir…" searchable searchPlaceholder="Rechercher une ville…" itemsLabel="villes" clearable onChange={field.onChange} />} />
             </Field>
             <Field label="Date de départ" htmlFor={`t-dep-${i}`} required error={errors.transports?.[i]?.departDate?.message}>
               <Controller name={`transports.${i}.departDate`} control={control} render={({ field }) => <DateField id={`t-dep-${i}`} value={field.value} onChange={field.onChange} />} />
@@ -79,7 +79,7 @@ export default function StepTransports({ referentials: ref }) {
               </Field>
             )}
             <Field label="Ville d’arrivée" htmlFor={`t-to-${i}`} required error={errors.transports?.[i]?.toCity?.message}>
-              <Controller name={`transports.${i}.toCity`} control={control} render={({ field }) => <Select id={`t-to-${i}`} value={field.value} options={options} placeholder="Choisir…" searchable clearable onChange={field.onChange} />} />
+              <Controller name={`transports.${i}.toCity`} control={control} render={({ field }) => <Select id={`t-to-${i}`} value={field.value} options={options} placeholder="Choisir…" searchable searchPlaceholder="Rechercher une ville…" itemsLabel="villes" clearable onChange={field.onChange} />} />
             </Field>
             <Field label="Date d’arrivée" htmlFor={`t-arr-${i}`} required error={errors.transports?.[i]?.arriveDate?.message}>
               <Controller name={`transports.${i}.arriveDate`} control={control} render={({ field }) => <DateField id={`t-arr-${i}`} value={field.value} onChange={field.onChange} />} />

@@ -1,24 +1,67 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Icon from './Icon';
 import usePopover from '../hooks/usePopover';
 
+// Long searchable lists (a country's cities: about 8 800 for France, 20 000 for the United States) are
+// searched rather than drawn in full, as travel sites do: the list opens on the search box, and typing
+// shows the best matches, at most MAX_SHOWN of them. Drawing every option made the list take seconds
+// to open. Shorter lists (Moroccan cities, countries) still open with every option, as before.
+const LARGE_LIST = 300;
+const MAX_SHOWN = 50;
+
+// Lower-case and accent-free, so « fes » finds « Fès » and « saint etienne » finds « Saint-Étienne ».
+const fold = (s) =>
+  s
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[-’']/g, ' ')
+    .toLowerCase();
+const count = (n) => n.toLocaleString('fr-FR');
+
 // Custom dropdown that matches the app's rounded popovers (native <select> menus come from the OS).
 // variant "field": full-width form control. variant "bar": compact pill for toolbars, with a prefix label.
-// `searchable` adds a filter box (Délégué: rechercher par nom, prénom ou email); `clearable` adds the ×.
-export default function Select({ id, value, options, onChange, variant = 'field', prefix, ariaLabel, placeholder, searchable = false, clearable = false, disabled = false }) {
+// `searchable` adds a filter box (with `searchPlaceholder`; `itemsLabel` names the items in the hint of
+// long lists, e.g. « villes »); `clearable` adds the ×.
+export default function Select({
+  id,
+  value,
+  options,
+  onChange,
+  variant = 'field',
+  prefix,
+  ariaLabel,
+  placeholder,
+  searchable = false,
+  searchPlaceholder = 'Rechercher…',
+  itemsLabel = 'éléments',
+  clearable = false,
+  disabled = false,
+}) {
   const { ref, open, setOpen } = usePopover();
   const [q, setQ] = useState('');
-  const items = options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
+  const items = useMemo(() => options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o)), [options]);
   const current = items.find((o) => o.value === value) || (value ? { value, label: value } : placeholder ? null : items[0]);
-  // Search: names starting with the query come first, then the other matches, both in list order.
-  const needle = q.trim().toLowerCase();
-  const shown = searchable && needle
-    ? items
-        .map((o, i) => ({ o, i, rank: o.label.toLowerCase().startsWith(needle) ? 0 : `${o.label} ${o.sub || ''}`.toLowerCase().includes(needle) ? 1 : 2 }))
-        .filter((x) => x.rank < 2)
-        .sort((a, b) => a.rank - b.rank || a.i - b.i)
-        .map((x) => x.o)
-    : items;
+  const large = searchable && items.length > LARGE_LIST;
+
+  // Search keys, built once per list and only while the list is open.
+  const keys = useMemo(() => (open && searchable ? items.map((o) => ({ label: fold(o.label), all: fold(`${o.label} ${o.sub || ''}`) })) : null), [open, searchable, items]);
+
+  // Names starting with the query come first, then the other matches, both in list order.
+  const needle = open && keys ? fold(q.trim()) : '';
+  let matches = items;
+  if (needle) {
+    const starts = [];
+    const contains = [];
+    items.forEach((o, i) => {
+      if (keys[i].label.startsWith(needle)) starts.push(o);
+      else if (keys[i].all.includes(needle)) contains.push(o);
+    });
+    matches = starts.concat(contains);
+  }
+  // A long list shows nothing but its current value until something is typed.
+  const waiting = large && !needle;
+  const shown = waiting ? (current && value ? [current] : []) : large ? matches.slice(0, MAX_SHOWN) : matches;
+  const more = large && !waiting ? matches.length - shown.length : 0;
 
   return (
     <div className="pop-wrap" ref={ref}>
@@ -54,10 +97,15 @@ export default function Select({ id, value, options, onChange, variant = 'field'
           {searchable && (
             <label className="pop-search">
               <Icon name="search" />
-              <input autoFocus className="srch" placeholder="Rechercher par nom, prénom ou email" value={q} onChange={(e) => setQ(e.target.value)} />
+              <input autoFocus className="srch" placeholder={searchPlaceholder} aria-label={searchPlaceholder} value={q} onChange={(e) => setQ(e.target.value)} />
             </label>
           )}
-          {shown.length === 0 && <div className="pop-empty">Aucun résultat</div>}
+          {waiting && (
+            <div className="pop-empty" role="status">
+              Saisissez les premières lettres pour rechercher parmi {count(items.length)} {itemsLabel}.
+            </div>
+          )}
+          {!waiting && shown.length === 0 && <div className="pop-empty">Aucun résultat</div>}
           {shown.map((o) => {
             const on = o.value === value;
             return (
@@ -81,6 +129,11 @@ export default function Select({ id, value, options, onChange, variant = 'field'
               </button>
             );
           })}
+          {more > 0 && (
+            <div className="pop-empty pop-more" role="status">
+              {count(shown.length)} premiers résultats sur {count(matches.length)}. Continuez à saisir pour affiner.
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -165,7 +165,7 @@ function ProfileForm({ profile, referentials, delegations }) {
               {visas.map((v, i) => (
                 <div className="visa-row" key={v.k}>
                   <Field label="Pays" htmlFor={`v-country-${v.k}`} required error={errors.visas?.[i]?.country?.message}>
-                    <Controller name={`visas.${i}.country`} control={control} render={({ field }) => <Select id={`v-country-${v.k}`} value={field.value} options={countries} placeholder="Pays" searchable onChange={field.onChange} />} />
+                    <Controller name={`visas.${i}.country`} control={control} render={({ field }) => <Select id={`v-country-${v.k}`} value={field.value} options={countries} placeholder="Pays" searchable searchPlaceholder="Rechercher un pays…" itemsLabel="pays" onChange={field.onChange} />} />
                   </Field>
                   <Field label="Numéro" htmlFor={`v-num-${v.k}`}>
                     <input id={`v-num-${v.k}`} placeholder="Numéro du visa" {...register(`visas.${i}.number`)} />

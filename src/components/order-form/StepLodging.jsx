@@ -54,7 +54,7 @@ export default function StepLodging({ referentials: ref }) {
           </div>
           <div className="form">
             <Field label="Ville d’hébergement" htmlFor={`h-city-${i}`} required error={errors.lodgings?.[i]?.city?.message} full>
-              <Controller name={`lodgings.${i}.city`} control={control} render={({ field }) => <Select id={`h-city-${i}`} value={field.value} options={cityOptions(cities)} placeholder="Choisir…" searchable onChange={field.onChange} />} />
+              <Controller name={`lodgings.${i}.city`} control={control} render={({ field }) => <Select id={`h-city-${i}`} value={field.value} options={cityOptions(cities)} placeholder="Choisir…" searchable searchPlaceholder="Rechercher une ville…" itemsLabel="villes" onChange={field.onChange} />} />
             </Field>
             <Field label="Date de check-in" htmlFor={`h-in-${i}`} required error={errors.lodgings?.[i]?.checkIn?.message}>
               <Controller name={`lodgings.${i}.checkIn`} control={control} render={({ field }) => <DateField id={`h-in-${i}`} value={field.value} onChange={field.onChange} />} />

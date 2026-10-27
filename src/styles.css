@@ -2657,6 +2657,11 @@ button:disabled {
   font-size: 12px;
   color: var(--faint);
 }
+/* « 50 premiers résultats sur 1 403 » under a long list's matches. */
+.pop-more {
+  margin-top: 4px;
+  border-top: 1px solid var(--line-soft);
+}
 .pop {
   max-height: 290px;
   overflow-y: auto;

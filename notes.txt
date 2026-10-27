@@ -15,6 +15,17 @@ national =
 super admin = all
 
 
+super notes
+
+perfcentage / periorite / Participants should i keep them or remove them bsc they dont you them
+show Aérien only if more than 500k in national
+
+in order soit national or international should fill one of this soit Activité(s) or Description obligatoire
+
+in step Transports should the date come alrady from the step beofre in order misson
+also in Hébergement should the date come filled from the steps before
+
+
 
 
 

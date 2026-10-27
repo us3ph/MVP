@@ -19,7 +19,7 @@ export default function DelegationModal({ delegation, referentials, onSave, onCl
     <Modal icon="delegate" title={delegation ? 'Modifier la délégation' : 'Ajouter une délégation'} onClose={onClose}>
       <form className="form one" onSubmit={handleSubmit((d) => onSave({ ...delegation, ...d }))}>
         <Field label="Délégué" htmlFor="dlg-who" required error={errors.delegateId?.message} hint="Rechercher par nom, prénom ou email." full>
-          <Controller name="delegateId" control={control} render={({ field }) => <Select id="dlg-who" value={field.value} options={peopleOptions(referentials)} placeholder="Choisir un collaborateur…" searchable onChange={field.onChange} />} />
+          <Controller name="delegateId" control={control} render={({ field }) => <Select id="dlg-who" value={field.value} options={peopleOptions(referentials)} placeholder="Choisir un collaborateur…" searchable searchPlaceholder="Rechercher par nom, prénom ou email" onChange={field.onChange} />} />
         </Field>
         <Field label="Action" htmlFor="dlg-act" required error={errors.actions?.message} full>
           <Controller name="actions" control={control} render={({ field }) => <MultiSelect id="dlg-act" values={field.value} options={actionOptions} placeholder="Actions et droits délégués…" icon="arrow-right" onChange={field.onChange} />} />
